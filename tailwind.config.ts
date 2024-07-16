@@ -20,6 +20,13 @@ const config = {
     },
     extend: {
       colors: {
+        "custom-green-night": "#0B150C",
+        "custom-green-light": "#15803D",
+        "custom-green-standard": "#14532D",
+        "custom-slate": "#F0F0F0",
+        "custom-light": "#F3F4F6",
+        "custom-green-oil": "#bafb00",
+        "custom-gray": "#8996A9",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
