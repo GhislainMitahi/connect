@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-8 ">
-      Welcome To co:nnect platform click here to know more{" "}
-      <Button>Click me</Button>
-      <div style={{ fontFamily: "var(--font-manrope)" }}>
-        <p style={{ fontWeight: 300 }}>This is Manrope font with weight 300.</p>
-        <p style={{ fontWeight: 400 }}>This is Manrope font with weight 400.</p>
-        <p style={{ fontWeight: 500 }}>This is Manrope font with weight 500.</p>
-        <p style={{ fontWeight: 700 }}>This is Manrope font with weight 700.</p>
-      </div>
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 bg-custom-green-night text-custom-light">
+      Welcome To co:nnect platform click here to connect{" "}
+      <Button
+        type="button"
+        className="bg-custom-green-oil rounded hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
+      >
+        <Link href="/signup">Sing up</Link>
+      </Button>
     </main>
   );
 }
