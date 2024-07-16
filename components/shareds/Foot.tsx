@@ -3,7 +3,7 @@ import SeparatorDot from "./SeparatorDot";
 
 const Foot = () => {
   return (
-    <div className="flex justify-between w-[80%]">
+    <div className="flex justify-between w-[100%]">
       <ul className="flex items-center gap-3 text-xs text-custom-gray tracking-wide">
         <li>Terms</li>
         <SeparatorDot />

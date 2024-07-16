@@ -75,10 +75,28 @@
   }
 }
 .signup-gb {
-  background: rgb(11, 21, 12);
   background: linear-gradient(
     0deg,
     rgba(11, 21, 12, 1) 27%,
     rgba(11, 21, 12, 0.7041667008600315) 100%
   );
+}
+
+.custom-select {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-select option {
+  background-color: #0b150c;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-select option:hover,
+.custom-select option:focus {
+  background-color: #bafb00;
+  color: #000;
 }

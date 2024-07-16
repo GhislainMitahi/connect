@@ -15,8 +15,8 @@ const Monitor = () => {
         d="M9.66675 26H20.3334M15.0001 20.6667V26M4.33341 2H25.6667C27.1395 2 28.3334 3.19391 28.3334 4.66667V18C28.3334 19.4728 27.1395 20.6667 25.6667 20.6667H4.33341C2.86066 20.6667 1.66675 19.4728 1.66675 18V4.66667C1.66675 3.19391 2.86066 2 4.33341 2Z"
         stroke="#BAFB00"
         strokeWidth="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

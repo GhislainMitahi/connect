@@ -14,14 +14,14 @@ const LanguageTrigger: React.FC<LanguageTriggerProps> = ({ className }) => {
         <Glob />
       </label>
       <select
-        className="bg-custom-green-night outline-none border-none onFocus-none onBlur-none"
+        className="bg-custom-green-night outline-none border-none onFocus-none onBlur-none custom-select"
         name="country"
         id="country"
       >
-        <option value="english" className="hover:bg-custom-green-oil">
+        <option value="english" className="">
           English
         </option>
-        <option value="french" className="hover:bg-custom-green-oil">
+        <option value="french" className="">
           French
         </option>
       </select>

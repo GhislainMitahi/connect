@@ -20,7 +20,7 @@ import Link from "next/link";
 import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
 
-export function SignUp() {
+function SignUp() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpformSchema>>({
     resolver: zodResolver(SignUpformSchema),
@@ -50,17 +50,17 @@ export function SignUp() {
             </h3>
             <div className="flex gap-4 w-full tracking-wide">
               <Button
-                className="w-[50%] flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+                className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
               >
                 <Google />
-                <p>Google</p>
+                <p className="md:text-sm text-xs">Google</p>
               </Button>
               <Button
-                className="w-[50%] flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+                className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
               >
-                <Facebook /> <p>Facebook</p>
+                <Facebook /> <p className="md:text-sm text-xs">Facebook</p>
               </Button>
             </div>
             <div className="flex gap-4 w-full items-center">
@@ -132,14 +132,13 @@ export function SignUp() {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-[12px] text-custom-gray">
-                    email
+                    Email
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -201,7 +200,7 @@ export function SignUp() {
             </p>
             <p>
               Already have an account?{" "}
-              <Link href="/login" className="text-custom-green-oil">
+              <Link href="/signin" className="text-custom-green-oil">
                 Login
               </Link>
             </p>
