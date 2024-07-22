@@ -25,7 +25,7 @@ RUN corepack prepare npm@latest --activate
 WORKDIR /app
 
 # Copy the .env file to the container based on the SETUP_ENVINROMENT argument
-COPY .env.${SETUP_ENVINROMENT}.sample .env
+# COPY .env.${SETUP_ENVINROMENT}.sample .env
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
