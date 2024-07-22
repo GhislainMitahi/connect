@@ -1,0 +1,35 @@
+name: Deploy Frontend to GCP VM
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.GCP_SSH_KEY }}
+
+      - name: Install rsync locally
+        run: sudo apt-get install -y rsync
+
+      - name: Sync files to GCP VM
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude 'node_modules' --exclude '.git' ./ colorscope_connect@35.239.161.187:/home/colorscope_connect/fr-connect
+
+      - name: SSH into GCP VM and deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no colorscope_connect@35.239.161.187 <<'EOF'
+            cd /home/colorscope_connect/fr-connect
+            npm install --production
+            sudo docker-compose down
+            sudo docker-compose up --build -d
+          EOF
