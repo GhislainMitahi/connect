@@ -1,12 +1,9 @@
 FROM node:20-alpine AS base
 ARG SETUP_ENVINROMENT=production
 
-
 ### Dependencies ###
 FROM base AS deps
 RUN apk add --no-cache libc6-compat git
-
-
 
 # Setup npm environment
 ENV NPM_HOME="/npm"
@@ -27,14 +24,12 @@ RUN corepack prepare npm@latest --activate
 
 WORKDIR /app
 
-# Copy the .env{SETUP_ENVINROMENT} file to the container
-# This will copy the .env.production.sample -> .env file if the SETUP_ENVINROMENT is production
-COPY .env.$SETUP_ENVINROMENT.sample .env
+# Copy the .env file to the container based on the SETUP_ENVINROMENT argument
+COPY .env.${SETUP_ENVINROMENT}.sample .env
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
-
 
 ### Production image runner ###
 FROM base AS runner
@@ -64,7 +59,7 @@ USER nextjs
 EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-q0", "http://localhost:3000/health" ]
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-qO-", "http://localhost:3000/health" ]
 
 # Run the nextjs app
 CMD ["node", "server.js"]
