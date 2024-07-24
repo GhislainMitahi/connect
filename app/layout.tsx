@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-import Providers from "@/components/Providers";
-import { poppins } from "@/lib/fonts";
+import { Inter as FontSans, Manrope } from "next/font/google";
 import { cn } from "@/lib/utils";
+import Providers from "@/components/Providers";
+
+
+import "./globals.css";
+
+// const fontSans = FontSans({
+//   subsets: ["latin"],
+//   variable: "--font-sans",
+// });
+
+const manrope = Manrope({
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "connect-platform",
@@ -24,8 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          `${poppins.className} min-h-screen bg-background font-sans antialiased`
+          `${manrope.className} min-h-screen bg-background antialiased`
         )}
+        // className="min-h-screen bg-background"
       >
         <Providers>{children}</Providers>
       </body>

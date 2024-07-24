@@ -16,7 +16,7 @@ export default function SignupPage() {
       style={{ backgroundImage: "url('/bg-pattern.svg')" }}
       className="flex md:min-h-screen h-full flex-col items-center justify-center bg-custom-green-night text-custom-light bg-no-repeat bg-cover bg-top"
     >
-      <div className="w-full md:h-[100vh] h-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center signup-gb py-14 md:py-0 md:px-14">
+      <div className="w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center signup-gb py-14 md:py-0 md:px-14">
         <div className=" md:w-[50%] w-full h-[80%] flex justify-center items-center">
           <div className="h-full w-[100%] flex flex-col justify-between items-center">
             <div className="flex w-[80%] flex-col gap-1 tracking-wide">

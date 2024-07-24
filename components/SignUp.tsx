@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { signIn } from "@/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +34,10 @@ function SignUp() {
     },
   });
 
+  const handleSignUpSocial = () => {
+    console.log("clicked")
+  }
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof SignUpformSchema>) {
     // Do something with the form values.
@@ -52,6 +57,7 @@ function SignUp() {
               <Button
                 className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
+                onClick={handleSignUpSocial}
               >
                 <Google />
                 <p className="md:text-sm text-xs">Google</p>

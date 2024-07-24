@@ -1,11 +1,13 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+
+import { loginWithGoogle } from "@/actions/login";
 import {
   Form,
   FormControl,
@@ -21,6 +23,7 @@ import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
 
 function SignIn() {
+  const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInformSchema>>({
     resolver: zodResolver(SignInformSchema),
@@ -35,9 +38,22 @@ function SignIn() {
   function onSubmit(values: z.infer<typeof SignInformSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    form.reset();
+    const { email, password, rememberMe } = values;
     console.log(values);
+    form.reset();
   }
+
+   // Use useWatch to watch the value of the "name" field
+  // const nameValue = useWatch({
+  //   control,
+  //   name: "name",
+  // });
+  
+  // const handleGoogleSignIn = (provider: "google") => {
+  // if ("google") {
+  //   loginWithGoogle()
+  // }
+  // }
   return (
     <Form {...form}>
       <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
@@ -47,18 +63,22 @@ function SignIn() {
               Sign in With:
             </h3>
             <div className="flex gap-4 w-full tracking-wide">
-              <Button
+              <Link href="/api/auth/signin">
+                <Button
+                  className="flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+                  type="submit"
+                  // onClick={() => onSubmit()}
+                >
+                  <Google />
+                  <p>Google</p>
+                </Button>
+              </Link>
+               <Button
                 className="w-[50%] flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
               >
-                <Google />
-                <p>Google</p>
-              </Button>
-              <Button
-                className="w-[50%] flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
-                type="submit"
-              >
-                <Facebook /> <p>Facebook</p>
+                <Facebook />
+                <p>Facebook</p>
               </Button>
             </div>
             <div className="flex gap-4 w-full items-center">

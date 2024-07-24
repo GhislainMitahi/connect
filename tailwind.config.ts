@@ -20,6 +20,11 @@ const config = {
     },
     extend: {
       colors: {
+        sidebarcolor: '#ecf8cb',
+        sidehover: '#c8e3ad',
+        linkColor: '#004a39',
+        dashMain: '#f2ffe9',
+        greenLight: '#bbfb00',
         "custom-green-night": "#0B150C",
         "custom-green-light": "#15803D",
         "custom-green-standard": "#14532D",
@@ -27,6 +32,10 @@ const config = {
         "custom-light": "#F3F4F6",
         "custom-green-oil": "#bafb00",
         "custom-gray": "#8996A9",
+        "auth-primary": "#c8e3ad",
+        "auth-secondary": "#ecf8cb",
+        "auth-text-color": "#004a39",
+        "auth-placeholder": "#597c74",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,7 +90,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        // sans: ["var(--font-sans)", ...fontFamily.sans],
       },
     },
   },
