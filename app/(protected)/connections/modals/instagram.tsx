@@ -31,13 +31,6 @@ const InstagramModal = () => {
           className="bg-sidehover focus:bg-sidehover hover:bg-sidehover"
         />
       </div>
-      <label htmlFor="token" className="mt-4 inline-block">Access Token</label>
-      <Input
-        placeholder="EAAjl..."
-        id="token"
-        name="token"
-        className="bg-sidehover focus:bg-sidehover hover:bg-sidehover"
-      />
     </div>
   );
 }

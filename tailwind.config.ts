@@ -19,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xs: "1240px",
+      },
       colors: {
         sidebarcolor: '#ecf8cb',
         sidehover: '#c8e3ad',

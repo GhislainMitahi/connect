@@ -1,7 +1,7 @@
 "use server"
 
 import * as z from "zod";
-import { DEFAULT_LOGIN_REDIRECT} from "@/routes"
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
 
 import { signIn } from "@/auth";
 import { SignInformSchema } from "@/lib/zodSchema";
@@ -10,7 +10,7 @@ import { AuthError } from "next-auth";
 export const loginWithGoogle = async (values: "string") => {
   const validatedFields = SignInformSchema.safeParse(values);
 
-  if(!validatedFields.success) {
+  if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
 
@@ -24,7 +24,7 @@ export const loginWithGoogle = async (values: "string") => {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "EmailSignInError":
-          return { error: "Invalid email"}
+          return { error: "Invalid email" }
         default:
           return { error: "Something went wrong!" }
       }

@@ -32,7 +32,7 @@ export default function Page() {
             <div>
                 <Button
                     onClick={() => {
-                        router.push("");
+                        router.push("/dashboard");
                     }}
                     className='w-full py-3 bg-auth-text-color mx-auto'
                 >

@@ -20,7 +20,7 @@ const SettingsPage = async() => {
         await signOut();
       }}>
         {/* <Button type="submit">Sign out</Button> */}
-        <Button type="submit"></Button>
+        <Button type="submit" className="bg-sidehover text-green-800 hover:bg-sidehover">Logout</Button>
 
       </form>
     </DashboardLayout>

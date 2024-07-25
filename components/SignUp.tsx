@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ import { SignUpformSchema } from "@/lib/zodSchema";
 import Link from "next/link";
 import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 function SignUp() {
   // 1. Define your form.
@@ -34,22 +35,42 @@ function SignUp() {
     },
   });
 
-  const handleSignUpSocial = () => {
-    console.log("clicked")
+  const handleSignUpSocial = async (provider: "google" | "facebbok") => {
+    try {
+      
+      signIn(provider,
+        { callbackUrl: DEFAULT_LOGIN_REDIRECT}
+      );
+    } catch (error) {
+      console.error("Error signing in with social provider:", error);
+    }
   }
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpformSchema>) {
+  const onSubmit = async (values: z.infer<typeof SignUpformSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    form.reset();
-    console.log(values);
+    try {
+      const result = await signIn("credentials", {
+        ...values,
+        redirect: false,
+        callbackUrl: DEFAULT_LOGIN_REDIRECT
+      });
+      if (result?.error) {
+        console.error("Error signing in with credentials:", result.error);
+      } else {
+        console.log("Successfully signed in with credentials:", result);
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Error signing in with credentials:", error);
+    }
+    // console.log(values);
   }
   return (
     <Form {...form}>
-      <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
-        <div className=" w-full flex flex-col justify-center items-center px-8 pt-8">
-          <div className="w-full flex flex-col gap-4 justify-center items-center">
+      <div className="flex flex-col h-full xs:w-[600px] justify-center items-center md:bg-custom-green-standard md:bg-opacity-15 md:rounded-xl md:p-6">
+        <div className="w-full h-full flex flex-col gap-4 justify-center items-center">
             <h3 className="text-custom-slate text-sm tracking-wide">
               Register With:
             </h3>
@@ -57,7 +78,7 @@ function SignUp() {
               <Button
                 className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
-                onClick={handleSignUpSocial}
+                onClick={() => handleSignUpSocial("google")}
               >
                 <Google />
                 <p className="md:text-sm text-xs">Google</p>
@@ -65,6 +86,7 @@ function SignUp() {
               <Button
                 className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
+                onClick={() => handleSignUpSocial("facebbok")}
               >
                 <Facebook /> <p className="md:text-sm text-xs">Facebook</p>
               </Button>
@@ -79,7 +101,7 @@ function SignUp() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-1"
           >
-            <div className="flex w-full gap-4">
+            <div className="flex w-full gap-2 pt-5 pb-2">
               <FormField
                 control={form.control}
                 name="firstName"
@@ -91,7 +113,7 @@ function SignUp() {
                     <FormControl>
                       <Input
                         className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                        placeholder="John"
+                        placeholder="First Name"
                         {...field}
                       />
                     </FormControl>
@@ -110,7 +132,7 @@ function SignUp() {
                     <FormControl>
                       <Input
                         className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                        placeholder="Doe"
+                        placeholder="Last Name"
                         {...field}
                       />
                     </FormControl>
@@ -130,7 +152,7 @@ function SignUp() {
                   <FormControl>
                     <Input
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                      placeholder="John Doe"
+                      placeholder="Username"
                       {...field}
                     />
                   </FormControl>
@@ -149,7 +171,7 @@ function SignUp() {
                   <FormControl>
                     <Input
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                      placeholder="joh@example.com"
+                      placeholder="Email"
                       {...field}
                     />
                   </FormControl>
@@ -169,7 +191,7 @@ function SignUp() {
                     <Input
                       type="password"
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                      placeholder="000000"
+                      placeholder="Password"
                       {...field}
                     />
                   </FormControl>
@@ -188,30 +210,6 @@ function SignUp() {
               Sign Up
             </Button>
           </form>
-        </div>
-        <div
-          style={{ background: "url('/Dots.svg')" }}
-          className="w-full bg-no-repeat bg-cover bg-center rounded-b-xl"
-        >
-          <div className="text-xs text-custom-gray flex items-center justify-center flex-col gap-4 px-8 py-4">
-            <p>
-              By creating an account, you agree to the 
-              <Link
-                href="#"
-                className="text-custom-slate font-semibold underline underline-offset-2"
-              >
-                Terms of Service
-              </Link>
-              . We'll occasionally send you account-related emails.
-            </p>
-            <p>
-              Already have an account?{" "}
-              <Link href="/signin" className="text-custom-green-oil">
-                Login
-              </Link>
-            </p>
-          </div>
-        </div>
       </div>
     </Form>
   );

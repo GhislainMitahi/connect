@@ -17,6 +17,46 @@ import ConnectLogo from "@/components/svg/ConnectLogo";
 
 export default function Page() {
     const router = useRouter();
+
+    const timezones = [
+  { label: "North America", items: [
+    { value: "est", text: "Eastern Standard Time (EST)" },
+    { value: "cst", text: "Central Standard Time (CST)" },
+    { value: "mst", text: "Mountain Standard Time (MST)" },
+    { value: "pst", text: "Pacific Standard Time (PST)" },
+    { value: "akst", text: "Alaska Standard Time (AKST)" },
+    { value: "hst", text: "Hawaii Standard Time (HST)" }
+  ]},
+  { label: "Europe & Africa", items: [
+    { value: "gmt", text: "Greenwich Mean Time (GMT)" },
+    { value: "cet", text: "Central European Time (CET)" },
+    { value: "eet", text: "Eastern European Time (EET)" },
+    { value: "west", text: "Western European Summer Time (WEST)" },
+    { value: "cat", text: "Central Africa Time (CAT)" },
+    { value: "eat", text: "East Africa Time (EAT)" }
+  ]},
+  { label: "Asia", items: [
+    { value: "msk", text: "Moscow Time (MSK)" },
+    { value: "ist", text: "India Standard Time (IST)" },
+    { value: "cst_china", text: "China Standard Time (CST)" },
+    { value: "jst", text: "Japan Standard Time (JST)" },
+    { value: "kst", text: "Korea Standard Time (KST)" },
+    { value: "ist_indonesia", text: "Indonesia Central Standard Time (WITA)" }
+  ]},
+  { label: "Australia & Pacific", items: [
+    { value: "awst", text: "Australian Western Standard Time (AWST)" },
+    { value: "acst", text: "Australian Central Standard Time (ACST)" },
+    { value: "aest", text: "Australian Eastern Standard Time (AEST)" },
+    { value: "nzst", text: "New Zealand Standard Time (NZST)" },
+    { value: "fjt", text: "Fiji Time (FJT)" }
+  ]},
+  { label: "South America", items: [
+    { value: "art", text: "Argentina Time (ART)" },
+    { value: "bot", text: "Bolivia Time (BOT)" },
+    { value: "brt", text: "Brasilia Time (BRT)" },
+    { value: "clt", text: "Chile Standard Time (CLT)" }
+  ]}
+];
     return (
         <main className='flex flex-col gap-10'>
             <div className="flex items-center flex-col">
@@ -57,60 +97,18 @@ export default function Page() {
                                 <SelectValue placeholder="Select a timezone" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectGroup>
-                                <SelectLabel>North America</SelectLabel>
-                                <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
-                                <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
-                                <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
-                                <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
-                                <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
-                                <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
+                                {timezones.map((group) => (
+                                <SelectGroup key={group.label}>
+                                    <SelectLabel>{group.label}</SelectLabel>
+                                    {group.items.map((item) => (
+                                    <SelectItem key={item.value} value={item.value}>
+                                        {item.text}
+                                    </SelectItem>
+                                    ))}
                                 </SelectGroup>
-                                <SelectGroup>
-                                <SelectLabel>Europe & Africa</SelectLabel>
-                                <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
-                                <SelectItem value="cet">Central European Time (CET)</SelectItem>
-                                <SelectItem value="eet">Eastern European Time (EET)</SelectItem>
-                                <SelectItem value="west">
-                                    Western European Summer Time (WEST)
-                                </SelectItem>
-                                <SelectItem value="cat">Central Africa Time (CAT)</SelectItem>
-                                <SelectItem value="eat">East Africa Time (EAT)</SelectItem>
-                                </SelectGroup>
-                                <SelectGroup>
-                                <SelectLabel>Asia</SelectLabel>
-                                <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
-                                <SelectItem value="ist">India Standard Time (IST)</SelectItem>
-                                <SelectItem value="cst_china">China Standard Time (CST)</SelectItem>
-                                <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
-                                <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
-                                <SelectItem value="ist_indonesia">
-                                    Indonesia Central Standard Time (WITA)
-                                </SelectItem>
-                                </SelectGroup>
-                                <SelectGroup>
-                                <SelectLabel>Australia & Pacific</SelectLabel>
-                                <SelectItem value="awst">
-                                    Australian Western Standard Time (AWST)
-                                </SelectItem>
-                                <SelectItem value="acst">
-                                    Australian Central Standard Time (ACST)
-                                </SelectItem>
-                                <SelectItem value="aest">
-                                    Australian Eastern Standard Time (AEST)
-                                </SelectItem>
-                                <SelectItem value="nzst">New Zealand Standard Time (NZST)</SelectItem>
-                                <SelectItem value="fjt">Fiji Time (FJT)</SelectItem>
-                                </SelectGroup>
-                                <SelectGroup>
-                                <SelectLabel>South America</SelectLabel>
-                                <SelectItem value="art">Argentina Time (ART)</SelectItem>
-                                <SelectItem value="bot">Bolivia Time (BOT)</SelectItem>
-                                <SelectItem value="brt">Brasilia Time (BRT)</SelectItem>
-                                <SelectItem value="clt">Chile Standard Time (CLT)</SelectItem>
-                                </SelectGroup>
+                                ))}
                             </SelectContent>
-                        </Select>
+                            </Select>
                     </div>
                     <div className='flex flex-col gap-2'>
                         <label className='font-medium text-auth-text-color text-sm'>

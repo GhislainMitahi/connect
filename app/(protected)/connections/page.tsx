@@ -30,7 +30,7 @@ const App: React.FC = () => <Tabs defaultActiveKey="1" items={items} onChange={o
 const ConnectionsPage = async() => {
   return (
     <DashboardLayout>
-      <h1 className='font-medium text-3xl text-linkColor mb-8'>Co:nnections</h1>
+      <h1 className='font-medium text-3xl text-linkColor mb-3'>Co:nnections</h1>
       <div className="">
         <App />
       </div>

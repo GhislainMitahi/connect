@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 
-import { Divider, Input, Modal } from "antd";
-import { AlignLeftOutlined, AppstoreOutlined, InstagramFilled, SearchOutlined, TikTokFilled, XOutlined, YoutubeFilled } from "@ant-design/icons";
+import { Button, Divider, Input, Modal } from "antd";
+import { AlignLeftOutlined, AppstoreOutlined, InstagramFilled,
+  SearchOutlined, TikTokFilled, XOutlined, YoutubeFilled,
+} from "@ant-design/icons";
 
 import SocialsPlateform from "./plateform";
 import InstagramModal from "../modals/instagram";
@@ -30,9 +32,9 @@ const DiscoverContent = () => {
 
   return (
     <div>
-      <div className='flex justify-between items-center gap-4 mb-16'>
+      <div className='flex justify-between items-center gap-4 mb-16 mt-4'>
         <Input size='large' prefix={<SearchOutlined />} placeholder='Search connections'
-          className='bg-sidehover focus:bg-sidehover focus:outline-none focus:ring-2 hover:bg-sidehover active:bg-sidehover mt-4'
+          className='bg-sidehover focus:bg-sidehover h-10 focus:outline-none focus:ring-2 hover:bg-sidehover active:bg-sidehover'
         />
         <div className='flex items-center gap-4 h-10 rounded-md px-3 bg-sidehover'>
           <AlignLeftOutlined />
@@ -69,9 +71,23 @@ const DiscoverContent = () => {
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        // footer={null}
+        footer={null}
       >
         {modalContent}
+        <div className="flex justify-end gap-4">
+          <Button
+            onClick={handleCancel}
+            className="bg-sidehover"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleOk}
+            className="bg-green-950 text-green-500"
+          >
+            Connect
+          </Button>
+        </div>
       </Modal>
     </div>
   )

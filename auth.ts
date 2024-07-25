@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import Credetials from "next-auth/providers/credentials";
-import { SignUpformSchema } from "./lib/zodSchema";
+import { SignInformSchema } from "./lib/zodSchema";
 // import credentials from "next-auth/providers/credentials";
 
 
@@ -34,14 +34,12 @@ export const {
     Facebook,
     Credetials({
       credentials: {
-        firstName: {},
-        lastName: {},
-        surName: {},
         email: {},
-        password: {}
+        password: {},
+        rememberMe: {}
       },
       authorize: async (credentials) => {
-        const validateFields = SignUpformSchema.safeParse(credentials);
+        const validateFields = SignInformSchema.safeParse(credentials);
         const { email, password } = validateFields.data;
 
         let user = null;

@@ -14,19 +14,21 @@ export default function SignupPage() {
   return (
     <main
       style={{ backgroundImage: "url('/bg-pattern.svg')" }}
-      className="flex md:min-h-screen h-full flex-col items-center justify-center bg-custom-green-night text-custom-light bg-no-repeat bg-cover bg-top"
+      className="flex min-h-screen flex-col items-center justify-center bg-custom-green-night text-custom-light bg-no-repeat bg-cover bg-top"
     >
-      <div className="w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center signup-gb py-14 md:py-0 md:px-14">
-        <div className=" md:w-[50%] w-full h-[80%] flex justify-center items-center">
-          <div className="h-full w-[100%] flex flex-col justify-between items-center">
-            <div className="flex w-[80%] flex-col gap-1 tracking-wide">
-              <div className="flex items-center gap-1">
+      <div className="md:w-[100%] flex md:flex-row flex-col justify-between items-center gap-4 md:gap-0 signup-gb mt-10 mb-5">
+        <div className="flex justify-center items-center">
+          <div className="w-[100%] flex flex-col justify-between items-center xs:ml-20">
+            <div className="flex w-[80%] flex-col gap-1 tracking-wide md:mb-8">
+              <div className="flex items-center justify-center gap-1 md:justify-start md:gap-2">
                 <ConnectLogo /> <p>co:nnect</p>
               </div>
               <H1 text="Start your Enhanced Journey today" />
-              <div className="flex gap-1 items-center text-custom-gray">
+              <div className="flex justify-center md:justify-start gap-1 items-center text-custom-gray py-2">
                 <CheckCircle />
-                <small className="text-xs ">10x Cheaper, 100x Faster</small>
+                <small className="text-xs md:hidden">No credit card required</small>
+                <small className="text-xs hidden md:block">10x Cheaper, 100x Faster</small>
+
               </div>
             </div>
             <div className="w-[80%] hidden md:flex flex-col gap-4">
@@ -46,13 +48,13 @@ export default function SignupPage() {
                 icon={<Analysis />}
               />
             </div>
-            <div className="w-[80%] hidden md:block">
+            <div className="w-[80%] hidden md:block md:mt-2">
               <Foot />
             </div>
           </div>
         </div>
-        <div className="md:w-[50%] w-full flex justify-center items-center h-full">
-          <div className="w-[80%] flex justify-center">
+        <div className="xs:w-[70%] w-full flex justify-center items-center">
+          <div className="flex justify-center px-4">
             <SignUp />
           </div>
         </div>
