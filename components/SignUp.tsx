@@ -209,6 +209,14 @@ function SignUp() {
             >
               Sign Up
             </Button>
+             <div className="text-xs text-custom-gray flex items-center justify-center flex-col gap-4 px-8 py-4">
+                <p>
+                  Already have an account?{" "}
+                  <Link href="/signin" className="text-custom-green-oil">
+                    Login
+                  </Link>
+                </p>
+              </div>
           </form>
       </div>
     </Form>

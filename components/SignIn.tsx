@@ -86,9 +86,8 @@ function SignIn() {
   // }
   return (
     <Form {...form}>
-      <div className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-4 bg-custom-green-standard bg-opacity-15 rounded-xl">
+      <div className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-8 bg-custom-green-standard bg-opacity-15 rounded-xl">
         <div className="w-full flex flex-col justify-between items-center">
-          <h1 className="mb-2">Login With: </h1>
           <div className="w-full flex items-center justify-center gap-3 pb-4">
             <Button
               className="w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
@@ -185,7 +184,7 @@ function SignIn() {
               className=" bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
             >
-              Sign In
+              Login
             </Button>
             <div
               style={{ background: "url('/Dots.svg')" }}
@@ -193,7 +192,7 @@ function SignIn() {
             >
               <div className="text-xs text-custom-gray flex items-center justify-center flex-col gap-4 px-8 py-4">
                 <p>
-                  Do not have an account?{" "}
+                  Don't have an account?{" "}
                   <Link href="/signup" className="text-custom-green-oil">
                     Sign Up
                   </Link>
