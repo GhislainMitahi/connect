@@ -119,7 +119,7 @@ function SignIn() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[12px] text-custom-gray mt-2">
+                  <FormLabel className="text-base text-custom-gray mt-2">
                     Username or Email
                   </FormLabel>
                   <FormControl>
@@ -139,7 +139,7 @@ function SignIn() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex justify-between mt-3">
-                    <FormLabel className="text-[12px] text-custom-gray">
+                    <FormLabel className="text-base text-custom-gray">
                       Password
                     </FormLabel>
                     <Link
@@ -174,14 +174,14 @@ function SignIn() {
                       className="bg-custom-green-oil"
                     />
                   </FormControl>
-                  <FormLabel className="flex items-center pb-2 text-[12px] text-custom-gray">
+                  <FormLabel className="flex items-center pb-2 text-sm text-custom-gray">
                     Remember Me
                   </FormLabel>
                 </FormItem>
               )}
             />
             <Button
-              className=" bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
+              className="text-base  bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
             >
               Login
@@ -190,8 +190,8 @@ function SignIn() {
               style={{ background: "url('/Dots.svg')" }}
               className="w-full bg-no-repeat bg-cover bg-center rounded-b-xl"
             >
-              <div className="text-xs text-custom-gray flex items-center justify-center flex-col gap-4 px-8 py-4">
-                <p>
+              <div className="text-xs text-custom-gray px-4 py-4 text-center">
+                <p className="text-sm">
                   Don't have an account?{" "}
                   <Link href="/signup" className="text-custom-green-oil">
                     Sign Up

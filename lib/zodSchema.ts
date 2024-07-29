@@ -7,9 +7,9 @@ export const SignUpformSchema = z.object({
   lastName: z.string().min(2, {
     message: "last Name must be at least 2 characters.",
   }),
-  userName: z.string().min(2, {
-    message: "User Name must be at least 2 characters.",
-  }),
+  // userName: z.string().min(2, {
+  //   message: "User Name must be at least 2 characters.",
+  // }),
   email: z.string().email().min(2, {
     message: "Email must be at least 2 characters.",
   }),

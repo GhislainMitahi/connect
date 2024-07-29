@@ -11,7 +11,7 @@ const page = () => {
       <div className=" w-full md:w-[70%] xs:w-[40%] min-h-[100vh] flex items-center justify-center signup-gb px-4 py-6">
         <div className="w-full flex flex-col gap-4 justify-center">
           <div className="flex flex-col items-center text-lg tracking-wide justify-center gap-4">
-            <ConnectLogo /> <p>Login to Co:nnect</p>
+            <ConnectLogo /> <p className="text-2xl md:text-[32px] font-medium">Login to Co:nnect</p>
           </div>
           <SignIn />
           <Foot />

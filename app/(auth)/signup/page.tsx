@@ -21,12 +21,12 @@ export default function SignupPage() {
           <div className="w-[100%] flex flex-col justify-between items-center xs:ml-20">
             <div className="flex w-[80%] flex-col gap-1 tracking-wide md:mb-8">
               <div className="flex items-center justify-center gap-1 md:justify-start md:gap-2">
-                <ConnectLogo /> <p>co:nnect</p>
+                <ConnectLogo /> <p className="text-[20px]">co:nnect</p>
               </div>
               <H1 text="Start your Enhanced Journey today" />
               <div className="flex justify-center md:justify-start gap-1 items-center text-custom-gray py-2">
                 <CheckCircle />
-                <small className="text-xs md:hidden">No credit card required</small>
+                <small className="text-sm md:hidden">No credit card required</small>
                 <small className="text-xs hidden md:block">10x Cheaper, 100x Faster</small>
 
               </div>

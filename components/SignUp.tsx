@@ -1,9 +1,11 @@
 "use client";
-
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
+
+import {EyeFilled, EyeInvisibleFilled, LockOutlined, MailFilled, MailOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,13 +25,18 @@ import Google from "./svg/Google";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 function SignUp() {
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpformSchema>>({
     resolver: zodResolver(SignUpformSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
-      userName: "",
+      // userName: "",
       email: "",
       password: "",
     },
@@ -71,7 +78,7 @@ function SignUp() {
     <Form {...form}>
       <div className="flex flex-col h-full xs:w-[600px] justify-center items-center md:bg-custom-green-standard md:bg-opacity-15 md:rounded-xl md:p-6">
         <div className="w-full h-full flex flex-col gap-4 justify-center items-center">
-            <h3 className="text-custom-slate text-sm tracking-wide">
+            <h3 className="text-custom-slate text-base tracking-wide">
               Register With:
             </h3>
             <div className="flex gap-4 w-full tracking-wide">
@@ -107,7 +114,7 @@ function SignUp() {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem className="w-[50%]">
-                    <FormLabel className="text-[12px] text-custom-gray">
+                    <FormLabel className="text-sm text-white">
                       First Name
                     </FormLabel>
                     <FormControl>
@@ -115,6 +122,7 @@ function SignUp() {
                         className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                         placeholder="First Name"
                         {...field}
+                        leftIcon={<UserAddOutlined />}
                       />
                     </FormControl>
                     <FormMessage className="text-[12px]" />
@@ -126,7 +134,7 @@ function SignUp() {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem className="w-[50%]">
-                    <FormLabel className="text-[12px] text-custom-gray">
+                    <FormLabel className="text-sm text-white">
                       Last Name
                     </FormLabel>
                     <FormControl>
@@ -134,6 +142,7 @@ function SignUp() {
                         className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                         placeholder="Last Name"
                         {...field}
+                        leftIcon={<UserAddOutlined />}
                       />
                     </FormControl>
                     <FormMessage className="text-[12px]" />
@@ -141,7 +150,7 @@ function SignUp() {
                 )}
               />
             </div>
-            <FormField
+            {/* <FormField
               control={form.control}
               name="userName"
               render={({ field }) => (
@@ -159,13 +168,13 @@ function SignUp() {
                   <FormMessage className="text-[12px]" />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[12px] text-custom-gray">
+                  <FormLabel className="text-sm text-white">
                     Email
                   </FormLabel>
                   <FormControl>
@@ -173,6 +182,7 @@ function SignUp() {
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="Email"
                       {...field}
+                      leftIcon={<MailOutlined />}
                     />
                   </FormControl>
                   <FormMessage className="text-[12px]" />
@@ -184,15 +194,18 @@ function SignUp() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[12px] text-custom-gray">
+                  <FormLabel className="text-sm text-white">
                     Password
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="Password"
                       {...field}
+                      leftIcon={<LockOutlined />}
+                      rightIcon={showPassword ? <EyeInvisibleFilled /> : <EyeFilled />}
+                      onRightClick={handleShowPassword}
                     />
                   </FormControl>
                   <FormDescription className="text-[12px]">
@@ -204,7 +217,7 @@ function SignUp() {
             />
 
             <Button
-              className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
+              className="text-base text-custom-green-night bg-custom-green-oil hover:bg-custom-green-light hover:text-custom-light"
               type="submit"
             >
               Sign Up
