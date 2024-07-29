@@ -1,12 +1,14 @@
 "use client";
-
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
-// import { Button } from "antd";
+
+import {EyeFilled, EyeInvisibleFilled, LockOutlined, MailOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons"
+
 
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
@@ -29,6 +31,10 @@ import Google from "./svg/Google";
 
 function SignIn() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInformSchema>>({
     resolver: zodResolver(SignInformSchema),
@@ -119,7 +125,7 @@ function SignIn() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base text-custom-gray mt-2">
+                  <FormLabel className="text-base text-white mt-2">
                     Username or Email
                   </FormLabel>
                   <FormControl>
@@ -127,6 +133,7 @@ function SignIn() {
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="username or email"
                       {...field}
+                      leftIcon={<UserOutlined />}
                     />
                   </FormControl>
                   <FormMessage className="text-[12px]" />
@@ -139,7 +146,7 @@ function SignIn() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex justify-between mt-3">
-                    <FormLabel className="text-base text-custom-gray">
+                    <FormLabel className="text-base text-white">
                       Password
                     </FormLabel>
                     <Link
@@ -152,10 +159,13 @@ function SignIn() {
 
                   <FormControl>
                     <Input
-                      type="password"
+                      type={showPassword ? "text" : "password" }
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
-                      placeholder="000000"
+                      placeholder="Password"
                       {...field}
+                      leftIcon={<LockOutlined />}
+                      rightIcon={showPassword ? <EyeInvisibleFilled /> : <EyeFilled />}
+                      onRightClick={handleShowPassword}
                     />
                   </FormControl>
                   <FormMessage className="text-[12px]" />
@@ -174,7 +184,7 @@ function SignIn() {
                       className="bg-custom-green-oil"
                     />
                   </FormControl>
-                  <FormLabel className="flex items-center pb-2 text-sm text-custom-gray">
+                  <FormLabel className="flex items-center pb-2 text-sm text-white">
                     Remember Me
                   </FormLabel>
                 </FormItem>

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
 
-import {EyeFilled, EyeInvisibleFilled, LockOutlined, MailFilled, MailOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons"
+import {EyeFilled, EyeInvisibleFilled, LockOutlined, MailOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +22,7 @@ import { SignUpformSchema } from "@/lib/zodSchema";
 import Link from "next/link";
 import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { DEFAULT_REGISTER_REDIRECT } from "@/routes";
 
 function SignUp() {
 
@@ -46,7 +46,7 @@ function SignUp() {
     try {
       
       signIn(provider,
-        { callbackUrl: DEFAULT_LOGIN_REDIRECT}
+        { callbackUrl: DEFAULT_REGISTER_REDIRECT}
       );
     } catch (error) {
       console.error("Error signing in with social provider:", error);
@@ -61,7 +61,7 @@ function SignUp() {
       const result = await signIn("credentials", {
         ...values,
         redirect: false,
-        callbackUrl: DEFAULT_LOGIN_REDIRECT
+        callbackUrl: DEFAULT_REGISTER_REDIRECT
       });
       if (result?.error) {
         console.error("Error signing in with credentials:", result.error);
@@ -222,7 +222,7 @@ function SignUp() {
             >
               Sign Up
             </Button>
-             <div className="text-xs text-custom-gray flex items-center justify-center flex-col gap-4 px-8 py-4">
+             <div className="text-sm text-custom-gray text-center px-8 py-4">
                 <p>
                   Already have an account?{" "}
                   <Link href="/signin" className="text-custom-green-oil">
