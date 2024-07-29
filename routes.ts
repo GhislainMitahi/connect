@@ -32,3 +32,4 @@ export const apiAuthPrefix = "/api/auth";
  */
 
 export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_REGISTER_REDIRECT = "/opt-auth/register"
