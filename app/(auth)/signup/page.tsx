@@ -27,7 +27,7 @@ export default function SignupPage() {
               <div className="flex justify-center md:justify-start gap-1 items-center text-custom-gray py-2">
                 <CheckCircle />
                 <small className="text-sm md:hidden">No credit card required</small>
-                <small className="text-xs hidden md:block">10x Cheaper, 100x Faster</small>
+                <small className="text-sm hidden md:block">10x Cheaper, 100x Faster</small>
 
               </div>
             </div>

@@ -60,7 +60,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <DownOutlined className='text-linkColor text-xs'/>
         </div>
-          <LinkIcons url="/dashboard" title="Theatre" icon={<Theatre />}/>
+          <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />}/>
           <LinkIcons url="/vision" title="Vision" icon={<Vision />}/>
           <LinkIcons url="/connections" title="Co:nnections" icon={<Connection />}/>
           <LinkIcons url="/co-creator" title="Co-Creator" icon={<Deal />} label='Coming soon'/>

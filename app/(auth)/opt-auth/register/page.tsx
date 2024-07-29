@@ -1,62 +1,45 @@
 
 "use client";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import countryList from "react-select-country-list";
+import Select from "react-select";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+import { OPTformRegister } from "@/lib/zodSchema";
+
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import ConnectLogo from "@/components/svg/ConnectLogo";
+
+type OPTformRegisterType = z.infer<typeof OPTformRegister>;
 
 export default function Page() {
     const router = useRouter();
+    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+     const countries = useMemo(() => countryList().getData(), []);
 
-    const timezones = [
-  { label: "North America", items: [
-    { value: "est", text: "Eastern Standard Time (EST)" },
-    { value: "cst", text: "Central Standard Time (CST)" },
-    { value: "mst", text: "Mountain Standard Time (MST)" },
-    { value: "pst", text: "Pacific Standard Time (PST)" },
-    { value: "akst", text: "Alaska Standard Time (AKST)" },
-    { value: "hst", text: "Hawaii Standard Time (HST)" }
-  ]},
-  { label: "Europe & Africa", items: [
-    { value: "gmt", text: "Greenwich Mean Time (GMT)" },
-    { value: "cet", text: "Central European Time (CET)" },
-    { value: "eet", text: "Eastern European Time (EET)" },
-    { value: "west", text: "Western European Summer Time (WEST)" },
-    { value: "cat", text: "Central Africa Time (CAT)" },
-    { value: "eat", text: "East Africa Time (EAT)" }
-  ]},
-  { label: "Asia", items: [
-    { value: "msk", text: "Moscow Time (MSK)" },
-    { value: "ist", text: "India Standard Time (IST)" },
-    { value: "cst_china", text: "China Standard Time (CST)" },
-    { value: "jst", text: "Japan Standard Time (JST)" },
-    { value: "kst", text: "Korea Standard Time (KST)" },
-    { value: "ist_indonesia", text: "Indonesia Central Standard Time (WITA)" }
-  ]},
-  { label: "Australia & Pacific", items: [
-    { value: "awst", text: "Australian Western Standard Time (AWST)" },
-    { value: "acst", text: "Australian Central Standard Time (ACST)" },
-    { value: "aest", text: "Australian Eastern Standard Time (AEST)" },
-    { value: "nzst", text: "New Zealand Standard Time (NZST)" },
-    { value: "fjt", text: "Fiji Time (FJT)" }
-  ]},
-  { label: "South America", items: [
-    { value: "art", text: "Argentina Time (ART)" },
-    { value: "bot", text: "Bolivia Time (BOT)" },
-    { value: "brt", text: "Brasilia Time (BRT)" },
-    { value: "clt", text: "Chile Standard Time (CLT)" }
-  ]}
-];
+    const changeHandler = (value: any) => {
+        setSelectedCountry(value);
+    };
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors }
+    } = useForm<OPTformRegisterType>({
+        resolver: zodResolver(OPTformRegister)
+    });
+
+    const onSubmit = (data: OPTformRegisterType) => {
+        console.log(data);
+        router.push("/opt-auth/verification");
+    };
+  
     return (
         <main className='flex flex-col gap-10'>
             <div className="flex items-center flex-col">
@@ -76,11 +59,8 @@ export default function Page() {
             </div>
 
             <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                }}
+            onSubmit={handleSubmit(onSubmit)}
                 className='flex flex-col gap-8'
-                action=''
             >
                 <div className='flex flex-col gap-6 lg:gap-8'>
                     <div className='flex flex-col gap-2'>
@@ -92,23 +72,14 @@ export default function Page() {
                             type='text'
                             placeholder='Select country'
                         /> */}
-                        <Select>
-                            <SelectTrigger className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-                                <SelectValue placeholder="Select a timezone" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {timezones.map((group) => (
-                                <SelectGroup key={group.label}>
-                                    <SelectLabel>{group.label}</SelectLabel>
-                                    {group.items.map((item) => (
-                                    <SelectItem key={item.value} value={item.value}>
-                                        {item.text}
-                                    </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                                ))}
-                            </SelectContent>
-                            </Select>
+                        <Select options={countries}
+                            value={selectedCountry}
+                            onChange={(value) => {
+                                changeHandler(value)
+                                setValue("country", value?.label || "")
+                            }}
+                        />
+                        {errors.country && <span className="text-red-500">{errors.country.message}</span>}
                     </div>
                     <div className='flex flex-col gap-2'>
                         <label className='font-medium text-auth-text-color text-sm'>
@@ -118,14 +89,14 @@ export default function Page() {
                             className='outline-none  py-3.5 px-6 placeholder:text-auth-text-color placeholder:text-sm focus-visible:ring-0 focus-visible:ring-offset-0'
                             type='text'
                             placeholder='Enter Phone Number '
+                            {...register("number")}
                         />
+                        {errors.number && <span className="text-red-500">{errors.number.message}</span>}
                     </div>
                 </div>
 
                 <Button
-                    onClick={() => {
-                        router.push("/opt-auth/verification");
-                    }}
+                type="submit"
                     className='max-w-[210px] w-full py-3 bg-auth-text-color mx-auto'
                 >
                     Continue
