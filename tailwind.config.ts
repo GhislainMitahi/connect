@@ -24,7 +24,7 @@ const config = {
       },
       colors: {
         sidebarcolor: '#ecf8cb',
-        sidehover: '#c8e3ad',
+        sidehover: '#C8E3AD',
         linkColor: '#004a39',
         dashMain: '#f2ffe9',
         greenLight: '#bbfb00',
@@ -35,7 +35,7 @@ const config = {
         "custom-light": "#F3F4F6",
         "custom-green-oil": "#bafb00",
         "custom-gray": "#8996A9",
-        "auth-primary": "#c8e3ad",
+        "auth-primary": "#C8E3AD",
         "auth-secondary": "#ecf8cb",
         "auth-text-color": "#004a39",
         "auth-placeholder": "#597c74",

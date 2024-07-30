@@ -1,19 +1,24 @@
 "use client";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { signIn } from "next-auth/react";
 
-import {EyeFilled, EyeInvisibleFilled, LockOutlined, MailOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons"
-
+import {
+  EyeFilled,
+  EyeInvisibleFilled,
+  LockOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 // If consider using server component for authentication
-import { loginWithGoogle } from "@/actions/login";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -22,8 +27,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { SignInformSchema } from "@/lib/zodSchema";
 import Facebook from "./svg/Facebook";
@@ -33,8 +36,8 @@ function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInformSchema>>({
     resolver: zodResolver(SignInformSchema),
@@ -45,15 +48,13 @@ function SignIn() {
     },
   });
 
-  const handleLoginWithSocial = async(provider: "google" | "facebook") => {
+  const handleLoginWithSocial = async (provider: "google" | "facebook") => {
     try {
-      signIn(provider,
-        { callbackUrl: DEFAULT_LOGIN_REDIRECT}
-      );
+      signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
     } catch (error) {
       console.error("Error loging in with social provider:", error);
     }
-  }
+  };
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
@@ -63,28 +64,27 @@ function SignIn() {
       const result = await signIn("credentials", {
         ...values,
         redirect: false,
-        callbackUrl: DEFAULT_LOGIN_REDIRECT
+        callbackUrl: DEFAULT_LOGIN_REDIRECT,
       });
       if (result?.error) {
-        console.error("Error loging in with credentials", result.error)
+        console.error("Error loging in with credentials", result.error);
       } else {
         console.log("Successfully loged in with credentials", result);
         form.reset();
       }
     } catch (error) {
-      console.error("Error loging in with credentials", error)
-      
+      console.error("Error loging in with credentials", error);
     }
     const { email, password, rememberMe } = values;
     console.log(values);
-  }
+  };
 
-   // Use useWatch to watch the value of the "name" field
+  // Use useWatch to watch the value of the "name" field
   // const nameValue = useWatch({
   //   control,
   //   name: "name",
   // });
-  
+
   // const handleGoogleSignIn = (provider: "google") => {
   // if ("google") {
   //   loginWithGoogle()
@@ -92,8 +92,8 @@ function SignIn() {
   // }
   return (
     <Form {...form}>
-      <div className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-8 bg-custom-green-standard bg-opacity-15 rounded-xl">
-        <div className="w-full flex flex-col justify-between items-center">
+      <div className="w-full flex flex-col justify-center items-center  bg-custom-green-standard bg-opacity-15 rounded-xl">
+        <div className="w-full flex flex-col justify-between items-center px-4 md:px-8 pt-8">
           <div className="w-full flex items-center justify-center gap-3 pb-4">
             <Button
               className="w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
@@ -103,13 +103,13 @@ function SignIn() {
               Google
             </Button>
             <Button
-                className=" w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
-                // type="submit"
-                onClick={() => handleLoginWithSocial("facebook")}
-              >
-                <Facebook />
-                <p>Facebook</p>
-              </Button>
+              className=" w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+              // type="submit"
+              onClick={() => handleLoginWithSocial("facebook")}
+            >
+              <Facebook />
+              <p>Facebook</p>
+            </Button>
           </div>
           <div className="flex gap-4 w-full items-center">
             <p className="h-[0.5px] bg-custom-gray w-full"></p>
@@ -159,12 +159,14 @@ function SignIn() {
 
                   <FormControl>
                     <Input
-                      type={showPassword ? "text" : "password" }
+                      type={showPassword ? "text" : "password"}
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="Password"
                       {...field}
                       leftIcon={<LockOutlined />}
-                      rightIcon={showPassword ? <EyeInvisibleFilled /> : <EyeFilled />}
+                      rightIcon={
+                        showPassword ? <EyeInvisibleFilled /> : <EyeFilled />
+                      }
                       onRightClick={handleShowPassword}
                     />
                   </FormControl>
@@ -196,21 +198,20 @@ function SignIn() {
             >
               Login
             </Button>
-            <div
-              style={{ background: "url('/Dots.svg')" }}
-              className="w-full bg-no-repeat bg-cover bg-center rounded-b-xl"
-            >
-              <div className="text-xs text-custom-gray px-4 py-4 text-center">
-                <p className="text-sm">
-                  Don't have an account?{" "}
-                  <Link href="/signup" className="text-custom-green-oil">
-                    Sign Up
-                  </Link>
-                </p>
-              </div>
-           </div>
-
           </form>
+        </div>
+        <div
+          style={{ background: "url('/Dots.svg')" }}
+          className="w-full bg-no-repeat bg-cover bg-center rounded-b-xl"
+        >
+          <div className="text-xs text-custom-gray px-4 py-4 text-center">
+            <p className="text-sm">
+              Don't have an account?{" "}
+              <Link href="/signup" className="text-custom-green-oil">
+                Sign Up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </Form>

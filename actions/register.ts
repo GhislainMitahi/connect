@@ -1,28 +1,28 @@
 
-"use server";
+// "use server";
 
-import * as zod from "zod";
-import { SignUpformSchema } from "@/lib/zodSchema";
-import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+// import { signIn } from "@/auth";
+// import { SignUpformSchema } from "@/lib/zodSchema";
+// import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+// import * as zod from "zod";
 
 
-const register = async (values: zod.z.infer<typeof SignUpformSchema>) => {
-  const validatedFields = SignUpformSchema.safeParse(values);
+// const register = async (values: zod.z.infer<typeof SignUpformSchema>) => {
+//   const validatedFields = SignUpformSchema.safeParse(values);
 
-  if (!validatedFields.success) {
-    return { error: "Invalid fields" }
-  }
+//   if (!validatedFields.success) {
+//     return { error: "Invalid fields" }
+//   }
 
-  const { firstName, lastName, surName, email, password } = validatedFields.data;
+//   const { firstName, lastName, email, password } = validatedFields.data;
 
-  try {
-    await signIn("credentials", {
-      firstName, lastName, surName, email, password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT
-    })
-  } catch (error) {
+//   try {
+//     await signIn("credentials", {
+//       firstName, lastName, email, password,
+//       redirectTo: DEFAULT_LOGIN_REDIRECT
+//     })
+//   } catch (error) {
 
-  }
-}
+//   }
+// }
 
