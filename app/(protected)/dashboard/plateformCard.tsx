@@ -20,14 +20,22 @@ const PlatformCard: React.FC<PlatformCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-40 h-40 flex flex-col items-center justify-center border-2 rounded-lg cursor-pointer ${
+      className={`w-40 h-40 bg-white flex flex-col items-center justify-center border-2 rounded-lg cursor-pointer ${
         isSelected ? "border-green-500" : "border-gray-300"
       }`}
       onClick={onSelect}
     >
-      {platformLogo}
-      <p>{platformName}</p>
-      <Button onClick={onButtonClick} disabled={buttonText === "Coming soon"}>{buttonText}</Button>
+      <div className={`${isSelected ? "bg-[#BBFB00]" : "bg-[#c8e3ad] opacity-80"} p-2 rounded-lg`}>
+        {platformLogo}
+      </div>
+      <p className="text-sm text-[#004A39] my-3">{platformName}</p>
+      <Button
+        onClick={onButtonClick}
+        disabled={buttonText === "Coming soon"}
+        className={`${isSelected ? "bg-[#BBFB00]" : "bg-[#c8e3ad]"} `}
+      >
+        {buttonText}
+      </Button>
     </div>
   );
 };

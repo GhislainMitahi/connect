@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="w-[250px] bg-sidebarcolor py-8 px-4 flex flex-col justify-between fixed overflow-y-auto">
+      <aside className="w-[250px] hidden h-full bg-sidebarcolor pt-8 px-4 md:flex flex-col justify-between fixed overflow-y-auto">
         <nav className="flex flex-col pb-4 mb-32">
         <div className='flex justify-between items-center bg-sidehover py-2 px-4 rounded-lg mb-8'>
           <div className='flex text-xs items-center justify-between gap-4 text-linkColor'>
@@ -90,7 +90,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </Radio.Group>
         </div>
       </aside>
-      <main className="flex-1 py-10 px-16 bg-dashMain ml-[230px]">{children}</main>
+      <main className="flex-1 py-10 px-6 md:px-16 bg-dashMain md:ml-[230px] min-h-screen">{children}</main>
     </div>
   );
 };
