@@ -4,22 +4,19 @@ import { abeezee } from "@/lib/fonts";
 import { Divider, Avatar, Button } from "antd";
 import { InstagramOutlined, XOutlined, YoutubeOutlined, TikTokOutlined } from "@ant-design/icons";
 
-import PlatformCard from "./plateformCard";
-import InstagramModal from "../connections/modals/instagram";
-import TikTokModal from "../connections/modals/tiktok";
-import YoutubeModal from "../connections/modals/youtube";
-import TwitterModal from "../connections/modals/twitter";
+import PlatformCard from "../common/plateformCard";
+import PlateformModal from "../common/platefomModal";
 
 const socialMediaPlatforms = [
-  { name: "Instagram", logo: <InstagramOutlined />, buttonText: "Connect" },
-  { name: "TikTok", logo: <TikTokOutlined />, buttonText: "Coming Soon" },
-  { name: "YouTube", logo: <YoutubeOutlined />, buttonText: "Coming Soon" },
-  { name: "Twitter", logo: <XOutlined />, buttonText: "Coming Soon" },
+  { name: "Instagram", logo: <InstagramOutlined className="text-3xl"/>, buttonText: "Connect" },
+  { name: "TikTok", logo: <TikTokOutlined className="text-3xl"/>, buttonText: "Coming Soon" },
+  { name: "YouTube", logo: <YoutubeOutlined className="text-3xl"/>, buttonText: "Coming Soon" },
+  { name: "Twitter", logo: <XOutlined className="text-3xl"/>, buttonText: "Coming Soon" },
 ];
 
 const GetStarted = () => {
   const [showConnections, setShowConnections] = useState(false);
-  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<string | null>("Instagram");
   const [isConnected, setIsConnected] = useState(false);
 
   const handleConnectClick = (platform: string) => {
@@ -34,16 +31,16 @@ const GetStarted = () => {
   const renderModal = () => {
     switch (selectedPlatform) {
       case "Instagram":
-        return <InstagramModal
-        cancelButton={<Button type="default">Cancel</Button>}
-        connectButton={<Button type="primary">Connect</Button>}
+        return <PlateformModal icon={<InstagramOutlined  className="text-3xl"/>} plateformName="Instagram" btnColor="" btnText=""
+        cancelButton={<Button type="default" className="text-[#004A39] bg-[#C8E3AD]">Cancel</Button>}
+        connectButton={<Button type="primary" className="bg-[#004A39] text-[#BBFB00]">Connect</Button>}
         />
       case "TikTok":
-        return <TikTokModal />;
+        return <PlateformModal icon={<TikTokOutlined  className="text-3xl"/>} plateformName="TikTok" btnColor="" btnText=""/>;
       case "YouTube":
-        return <YoutubeModal />;
+        return <PlateformModal icon={<TikTokOutlined className="text-3xl"/>} plateformName="TikTok" btnColor="" btnText=""/>;
       case "Twitter":
-        return <TwitterModal />;
+        return <PlateformModal icon={<TikTokOutlined className="text-3xl"/>} plateformName="TikTok" btnColor="" btnText=""/>;
       default:
         return null;
     }
@@ -52,13 +49,13 @@ const GetStarted = () => {
   return (
     <div className="max-w-[739px] h-auto bg-sidebarcolor rounded-2xl p-3">
       {isConnected ? (
-          <div className="">
-            { renderModal() }
-          </div>
+        <div className="w-[80%] m-auto">
+          {renderModal()}
+        </div>
       ) : showConnections ? (
         <div className="flex flex-col items-center justify-center p-5">
-          <h2 className="text-base text-[#004A39] font-semibold mb-5">Select your default co:nnection</h2>
-          <div className="grid grid-cols-2 gap-4 mb-5">
+          <h2 className="text-base text-[#004A39] font-semibold mb-5">Select your default Co:nnection</h2>
+          <div className="grid grid-cols-2 gap-8 mb-5 px-12">
             {socialMediaPlatforms.map((platform) => (
               <PlatformCard
                 key={platform.name}
@@ -85,7 +82,7 @@ const GetStarted = () => {
           <div className="flex flex-col justify-center items-center gap-5">
             <div className="flex gap-4">
               <Avatar className="w-[60px] h-[60px]" />
-              <p className={`w-[532px] text-sm leading-6 font-semibold ${abeezee.className}`}>
+              <p className={`w-[532px] text-sm leading-6 font-semibold text-[#004A39] ${abeezee.className}`}>
                 Hi Alfred! I'm Vision, your Content Performance Analyst. Let's get started by connecting your social media accounts so I can assess your current content performance.
               </p>
             </div>
@@ -93,7 +90,7 @@ const GetStarted = () => {
               className={`text-[#004A39] ${abeezee.className}`}
               onClick={() => setShowConnections(true)}
             >
-              Connect
+              Co:nnections
             </Button>
           </div>
         </div>

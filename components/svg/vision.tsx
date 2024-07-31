@@ -1,4 +1,10 @@
-const Vision = () => {
+import React from "react";
+
+interface VisionProps {
+  color?: string;
+}
+
+const Vision: React.FC<VisionProps> = ({ color = "#004A39" }) => {
   return (
     <svg
       width="20"
