@@ -1,8 +1,15 @@
-const ConnectLogo = () => {
+import React from "react";
+
+interface ConnectLogoProps {
+  width?: string;
+  height?: string;
+}
+
+const ConnectLogo: React.FC<ConnectLogoProps> = ({ width = "24", height = "24" }) => {
   return (
     <svg
-      width="24"
-      height="24"
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
