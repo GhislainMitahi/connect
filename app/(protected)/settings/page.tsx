@@ -1,19 +1,21 @@
 // "use client";
 
 import { auth, signOut } from "@/auth";
-// import { Button } from "antd";
 import { Button } from "@/components/ui/button";
 
 import DashboardLayout from "../dashboard/layout";
 
 const SettingsPage = async() => {
   const session = await auth();
-  console.log(session)
+  console.log(session);
+  const { user } = session;
   return (
     <DashboardLayout>
-      <h1>Settings page</h1>
-      <div className="">
+      <h1 className="text-2xl font-semibold mb-5">Settings page</h1>
+      <div className="flex flex-col gap-4 mb-3">
         {/* {JSON.stringify(session)} */}
+        <p>{user.name}</p>
+        <p>{user.email}</p>
       </div>
       <form action={async () => {
         "use server"
