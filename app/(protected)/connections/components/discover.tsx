@@ -8,7 +8,7 @@ import { AlignLeftOutlined, AppstoreOutlined, InstagramFilled,
 } from "@ant-design/icons";
 
 import SocialsPlateform from "./plateform";
-import PlateformModal from "../modals/platefomModal";
+import PlateformModal from "../../common/platefomModal";
 
 import type { RadioChangeEvent } from 'antd';
 
