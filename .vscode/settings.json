@@ -6,12 +6,11 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.format": "explicit"
   },
-  "cSpell.words": [
-    "nnect",
-    "signin",
-    "Signup"
-  ],
+  "cSpell.words": ["nnect", "signin", "Signup"],
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }

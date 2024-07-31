@@ -1,9 +1,9 @@
 "use client";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,6 +17,7 @@ import {
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 // If consider using server component for authentication
+import { login } from "@/actions/login";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -33,7 +34,7 @@ import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
 
 function SignIn() {
-  const router = useRouter();
+  //Local states
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -48,6 +49,9 @@ function SignIn() {
     },
   });
 
+  //Toast
+  const { toast } = useToast();
+
   const handleLoginWithSocial = async (provider: "google" | "facebook") => {
     try {
       signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
@@ -58,38 +62,38 @@ function SignIn() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     try {
-      const result = await signIn("credentials", {
-        ...values,
-        redirect: false,
-        callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      startTransition(async () => {
+        const data = await login(values);
+
+        if (data?.error) {
+          toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: `${data.error}`,
+            duration: 5000,
+          });
+        } else {
+          toast({
+            variant: "default",
+            title: "Login Successful",
+            description: "You have successfully logged in!",
+            duration: 5000,
+          });
+        }
       });
-      if (result?.error) {
-        console.error("Error loging in with credentials", result.error);
-      } else {
-        console.log("Successfully loged in with credentials", result);
-        form.reset();
-      }
     } catch (error) {
-      console.error("Error loging in with credentials", error);
+      console.error("Error logging in with credentials", error);
+      toast({
+        variant: "destructive",
+        title: "System Error",
+        description:
+          "Unable to process your login request. Please try again later.",
+        duration: 5000,
+      });
     }
-    const { email, password, rememberMe } = values;
-    console.log(values);
   };
 
-  // Use useWatch to watch the value of the "name" field
-  // const nameValue = useWatch({
-  //   control,
-  //   name: "name",
-  // });
-
-  // const handleGoogleSignIn = (provider: "google") => {
-  // if ("google") {
-  //   loginWithGoogle()
-  // }
-  // }
   return (
     <Form {...form}>
       <div className="w-full flex flex-col justify-center items-center  bg-custom-green-standard bg-opacity-15 rounded-xl">
@@ -104,7 +108,6 @@ function SignIn() {
             </Button>
             <Button
               className=" w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
-              // type="submit"
               onClick={() => handleLoginWithSocial("facebook")}
             >
               <Facebook />

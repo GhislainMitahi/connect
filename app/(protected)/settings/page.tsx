@@ -1,30 +1,38 @@
-// "use client";
+"use client";
 
-import { auth, signOut } from "@/auth";
-// import { Button } from "antd";
+import { CustomSession } from "@/app/types/next-auth";
 import { Button } from "@/components/ui/button";
-
+import { signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "../dashboard/layout";
 
-const SettingsPage = async() => {
-  const session = await auth();
-  console.log(session)
+const SettingsPage = () => {
+  const [session, setSession] = useState<CustomSession | null>(null);
+  const { data, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated" && data) {
+      setSession(data as CustomSession);
+    } else {
+      setSession(null);
+    }
+  }, [data, status]);
+
   return (
     <DashboardLayout>
       <h1>Settings page</h1>
       <div className="">
-        {/* {JSON.stringify(session)} */}
-      </div>
-      <form action={async () => {
-        "use server"
-        await signOut();
-      }}>
-        {/* <Button type="submit">Sign out</Button> */}
-        <Button type="submit" className="bg-sidehover text-green-800 hover:bg-sidehover">Logout</Button>
+        {JSON.stringify(session)}
 
-      </form>
+        <Button
+          onClick={() => signOut()}
+          className="bg-sidehover text-green-800 hover:bg-sidehover"
+        >
+          Sign out
+        </Button>
+      </div>
     </DashboardLayout>
   );
-}
- 
+};
+
 export default SettingsPage;

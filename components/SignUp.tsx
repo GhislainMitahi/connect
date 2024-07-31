@@ -58,8 +58,6 @@ function SignUp() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignUpformSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     try {
       const result = await signIn("credentials", {
         ...values,

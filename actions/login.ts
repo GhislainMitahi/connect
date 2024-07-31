@@ -1,35 +1,30 @@
 "use server"
+import z from 'zod';
 
-import * as z from "zod";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
+import { SignInformSchema } from '@/lib/zodSchema';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { AuthError } from 'next-auth';
+import { signIn } from '../auth';
 
-import { signIn } from "@/auth";
-import { SignInformSchema } from "@/lib/zodSchema";
-import { AuthError } from "next-auth";
-
-export const loginWithGoogle = async (values: "string") => {
-  const validatedFields = SignInformSchema.safeParse(values);
-
-  if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
-  }
-
-  const { email } = validatedFields.data;
+export const login = async (values: z.infer<typeof SignInformSchema>) => {
+  const { email, password } = values;
   try {
-    await signIn("google", {
+    await signIn('credentials', {
       email,
+      password,
       redirectTo: DEFAULT_LOGIN_REDIRECT
-    })
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "EmailSignInError":
-          return { error: "Invalid email" }
+    });
+  } catch (err) {
+    if (err instanceof AuthError) {
+      switch (err.type) {
+        case 'CredentialsSignin':
+          return {
+            error: 'Invalid Credentials',
+          };
         default:
-          return { error: "Something went wrong!" }
+          return { error: 'Something went wrong, ensure your credentials are well verified!' };
       }
     }
-
-    throw error;
+    throw err;
   }
 };

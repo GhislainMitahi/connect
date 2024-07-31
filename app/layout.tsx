@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
 import { manrope } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-
+import type { Metadata } from "next";
 
 import Providers from "@/components/Providers";
 
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ export default function RootLayout({
         )}
       >
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
