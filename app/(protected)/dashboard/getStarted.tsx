@@ -4,12 +4,8 @@ import { abeezee } from "@/lib/fonts";
 import { Divider, Avatar, Button } from "antd";
 import { InstagramOutlined, XOutlined, YoutubeOutlined, TikTokOutlined } from "@ant-design/icons";
 
-import PlatformCard from "./plateformCard";
-import InstagramModal from "../connections/modals/instagram";
-// import TikTokModal from "../connections/modals/tiktok";
-// import YoutubeModal from "../connections/modals/youtube";
-// import TwitterModal from "../connections/modals/twitter";
-import PlateformModal from "../connections/modals/platefomModal";
+import PlatformCard from "../common/plateformCard";
+import PlateformModal from "../common/platefomModal";
 
 const socialMediaPlatforms = [
   { name: "Instagram", logo: <InstagramOutlined className="text-3xl"/>, buttonText: "Connect" },

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import Link from 'next/link';
 import { Radio } from 'antd';
 import {DownOutlined} from "@ant-design/icons";
 
@@ -14,28 +13,13 @@ import Code from '@/components/svg/code';
 import NotificationBell from '@/components/svg/notification';
 import SettingIcon from '@/components/svg/setting';
 
+import LinkIcons from '../common/link';
+
 
 import type { RadioChangeEvent } from 'antd';
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
-interface LinkIconsProps {
-  url: string;
-  title: string;
-  icon: any;
-  label?: string
-}
 
-const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label}) => {
-  return (
-    <Link href={url} className="flex items-center  justify-between text-xs mb-1 p-2 hover:bg-sidehover rounded font-normal">
-      <div className='flex items-center gap-4 text-linkColor'>
-      {icon}
-      {title}
-      </div>
-      {label && (<p className='bg-greenLight p-1 rounded-sm'>{label}</p>)}
-    </Link>
-)
-}
 
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -60,9 +44,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <DownOutlined className='text-linkColor text-xs'/>
         </div>
-          <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />}/>
-          <LinkIcons url="/vision" title="Vision" icon={<Vision />}/>
-          <LinkIcons url="/connections" title="Co:nnections" icon={<Connection />}/>
+          <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />} />
+          <LinkIcons url="/vision" title="Vision" icon={<Vision />} />
+          <LinkIcons url="/connections" title="Co:nnections" icon={<Connection />} />
           <LinkIcons url="/co-creator" title="Co-Creator" icon={<Deal />} label='Coming soon'/>
           {/* Add more links as needed */}
         </nav>
