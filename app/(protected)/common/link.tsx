@@ -14,18 +14,13 @@ interface LinkIconsProps {
 const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label, inactive = false}) => {
   const pathname = usePathname();
 
-  const isActive = pathname === url;
+  const isCurrentPage = pathname === url;
 
    const linkStyles = `
     flex items-center justify-between text-xs mb-1 p-2 rounded font-normal 
-    ${isActive && !inactive ? "bg-sidehover" : "bg-inherit"}
+    ${isCurrentPage && !inactive ? "bg-sidehover" : "bg-inherit"}
     ${inactive ? "text-[#8BA373] pointer-events-none" : "hover:bg-[#c8e3ad80]"}
   `;
-
-  const textStyles = inactive ? "text-[#8BA373]" : "text-linkColor";
-
-  console.log(isActive)
-  console.log(pathname)
   
   return (
     <Link href={url} className={linkStyles}>
