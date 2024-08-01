@@ -8,10 +8,11 @@ interface LinkIconsProps {
   title: string;
   icon: any;
   label?: string;
-  inactive?: boolean
+  inactive?: boolean;
+  onToggle?: () => void;
 }
 
-const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label, inactive = false}) => {
+const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label, inactive = false, onToggle}) => {
   const pathname = usePathname();
 
   const isCurrentPage = pathname === url;
@@ -21,9 +22,11 @@ const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label, inactive
     ${isCurrentPage && !inactive ? "bg-sidehover" : "bg-inherit"}
     ${inactive ? "text-[#8BA373] pointer-events-none" : "hover:bg-[#c8e3ad80]"}
   `;
+
+
   
   return (
-    <Link href={url} className={linkStyles}>
+    <Link href={url} className={linkStyles} onClick={onToggle}>
         <div className={`flex items-center gap-4 ${inactive ? "text-[#8ba373]" : "text-linkColor"}`}>
         {/* {icon} */}
         {React.cloneElement(icon, { color: inactive ? "#8BA373" : "#004A39" })}
