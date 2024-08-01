@@ -25,14 +25,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { server } from "@/lib/server";
 import { SignUpformSchema } from "@/lib/zodSchema";
-import { DEFAULT_REGISTER_REDIRECT } from "@/routes";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Spinner from "./shareds/Spinner";
 import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  //toast
+  const { toast } = useToast();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -50,7 +59,7 @@ function SignUp() {
 
   const handleSignUpSocial = async (provider: "google" | "facebbok") => {
     try {
-      signIn(provider, { callbackUrl: DEFAULT_REGISTER_REDIRECT });
+      signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
     } catch (error) {
       console.error("Error signing in with social provider:", error);
     }
@@ -59,33 +68,57 @@ function SignUp() {
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignUpformSchema>) => {
     try {
-      const result = await signIn("credentials", {
+      setIsLoading(true);
+      const response = await server.post("/auth/signup", {
         ...values,
-        redirect: false,
-        callbackUrl: DEFAULT_REGISTER_REDIRECT,
       });
-      if (result?.error) {
-        console.error("Error signing in with credentials:", result.error);
-      } else {
-        console.log("Successfully signed in with credentials:", result);
+
+      if (response.data && response.data.status === "200") {
         form.reset();
+        toast({
+          variant: "default",
+          title: "Sign up",
+          description: response.data.message,
+          duration: 3000,
+        });
+        setIsLoading(false);
+        if (response.data.emailUrlVerify) {
+          const fullUrl = response.data.emailUrlVerify;
+          const urlObject = new URL(fullUrl);
+
+          const pathWithQuery = urlObject.pathname + urlObject.search;
+
+          router.push(pathWithQuery);
+        }
       }
     } catch (error) {
-      console.error("Error signing in with credentials:", error);
+      setIsLoading(false);
+      console.error(error);
+      let errorMessage = "An unexpected error occurred";
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: errorMessage,
+        duration: 3000,
+      });
     }
-    // console.log(values);
   };
   return (
     <Form {...form}>
-      <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
+      <div className="w-[100%] h-full flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
         <div className=" w-full flex flex-col justify-center items-center px-8 pt-8">
           <div className="w-full flex flex-col gap-4 justify-center items-center">
             <h3 className="text-custom-slate text-sm tracking-wide">
               Register With:
             </h3>
-            <div className="flex gap-4 w-full tracking-wide">
+            <div className="flex md:flex-row flex-col items-center justify-center gap-4 w-full tracking-wide">
               <Button
-                className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+                className="md:w-[50%] w-full flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
                 onClick={() => handleSignUpSocial("google")}
               >
@@ -93,7 +126,7 @@ function SignUp() {
                 <p className="md:text-sm text-xs">Google</p>
               </Button>
               <Button
-                className="w-[50%] flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
+                className="md:w-[50%] w-full flex md:gap-4 gap-2 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
                 type="submit"
                 onClick={() => handleSignUpSocial("facebbok")}
               >
@@ -205,7 +238,8 @@ function SignUp() {
               className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
             >
-              Sign Up
+              {" "}
+              {isLoading ? <Spinner /> : "Sign Up"}
             </Button>
           </form>
         </div>

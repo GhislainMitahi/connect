@@ -4,7 +4,7 @@ import ConnectLogo from "@/components/svg/ConnectLogo";
 
 const page = () => {
   return (
-    <div className="w-1/2 flex flex-col gap-4 justify-center">
+    <div className="md:w-1/2 w-[80%] flex flex-col gap-4 justify-center">
       <div className="flex flex-col items-center text-lg tracking-wide justify-center gap-4">
         <ConnectLogo />{" "}
         <p className="text-2xl md:text-[32px] font-medium">Login to Co:nnect</p>

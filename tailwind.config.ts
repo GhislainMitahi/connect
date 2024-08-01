@@ -25,7 +25,7 @@ const config = {
       colors: {
         sidebarcolor: '#ecf8cb',
         sidehover: '#C8E3AD',
-        linkColor: '#004a39',
+        linkColor: '#004A39',
         dashMain: '#f2ffe9',
         greenLight: '#bbfb00',
         "custom-green-night": "#0B150C",
@@ -79,6 +79,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -91,6 +95,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       fontFamily: {
         // sans: ["var(--font-sans)", ...fontFamily.sans],
