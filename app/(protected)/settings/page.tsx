@@ -22,8 +22,8 @@ const SettingsPage = () => {
     <DashboardLayout>
       <h1>Settings page</h1>
       <div className="">
-        {JSON.stringify(session)}
-
+        <p>name: {session?.user.name}</p>
+        <p>email: {session?.user.email}</p>
         <Button
           onClick={() => signOut()}
           className="bg-sidehover text-green-800 hover:bg-sidehover"

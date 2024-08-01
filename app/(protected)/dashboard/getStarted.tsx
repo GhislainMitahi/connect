@@ -47,15 +47,15 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="max-w-[739px] h-auto bg-sidebarcolor rounded-2xl p-3">
+    <div className="w-full md:max-w-[739px] h-auto bg-sidebarcolor rounded-2xl p-3">
       {isConnected ? (
         <div className="w-[80%] m-auto">
           {renderModal()}
         </div>
       ) : showConnections ? (
         <div className="flex flex-col items-center justify-center p-5">
-          <h2 className="text-base text-[#004A39] font-semibold mb-5">Select your default Co:nnection</h2>
-          <div className="grid grid-cols-2 gap-8 mb-5 px-12">
+          <h2 className="text-center md:text-left text-base text-[#004A39] font-semibold mb-5">Select your default Co:nnection</h2>
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-8 mb-5 px-12">
             {socialMediaPlatforms.map((platform) => (
               <PlatformCard
                 key={platform.name}
@@ -81,8 +81,8 @@ const GetStarted = () => {
           <Divider className="my-3" />
           <div className="flex flex-col justify-center items-center gap-5">
             <div className="flex gap-4">
-              <Avatar className="w-[60px] h-[60px]" />
-              <p className={`w-[532px] text-sm leading-6 font-semibold text-[#004A39] ${abeezee.className}`}>
+              <Avatar className="w-[40px] h-[40px] md:w-[60px] md:h-[60px]" />
+              <p className={`w-full md:w-[532px] text-sm leading-6 font-semibold text-[#004A39] ${abeezee.className}`}>
                 Hi Alfred! I'm Vision, your Content Performance Analyst. Let's get started by connecting your social media accounts so I can assess your current content performance.
               </p>
             </div>
