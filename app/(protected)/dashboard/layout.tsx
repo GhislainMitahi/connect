@@ -1,7 +1,6 @@
 "use client";
 import { DownOutlined } from "@ant-design/icons";
 import { Radio } from "antd";
-import Link from "next/link";
 import { useState } from "react";
 
 import Bolt from "@/components/svg/Bolt";
@@ -14,30 +13,11 @@ import SettingIcon from "@/components/svg/setting";
 import Theatre from "@/components/svg/Theatre";
 import Vision from "@/components/svg/vision";
 
+import LinkIcons from "../common/link";
+
 import type { RadioChangeEvent } from "antd";
 type TabPosition = "left" | "right" | "top" | "bottom";
 
-interface LinkIconsProps {
-  url: string;
-  title: string;
-  icon: any;
-  label?: string;
-}
-
-const LinkIcons: React.FC<LinkIconsProps> = ({ url, title, icon, label }) => {
-  return (
-    <Link
-      href={url}
-      className="flex items-center  justify-between text-xs mb-1 p-2 hover:bg-sidehover rounded font-normal"
-    >
-      <div className="flex items-center gap-4 text-linkColor">
-        {icon}
-        {title}
-      </div>
-      {label && <p className="bg-greenLight p-1 rounded-sm">{label}</p>}
-    </Link>
-  );
-};
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState<TabPosition>("top");
@@ -48,7 +28,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="w-[250px] h-full bg-sidebarcolor py-8 px-4 flex flex-col justify-between fixed overflow-y-auto">
+      <aside className="w-[250px] hidden h-full bg-sidebarcolor py-8 px-4 md:flex flex-col justify-between fixed overflow-y-auto custom-scrollbar">
         <nav className="flex flex-col pb-4 mb-32">
           <div className="flex justify-between items-center bg-sidehover py-2 px-4 rounded-lg mb-8">
             <div className="flex text-xs items-center justify-between gap-4 text-linkColor">
@@ -61,7 +41,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             <DownOutlined className="text-linkColor text-xs" />
           </div>
           <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />} />
-          <LinkIcons url="/vision" title="Vision" icon={<Vision />} />
+          <LinkIcons url="/vision" title="Vision" icon={<Vision />} inactive={true}/>
           <LinkIcons
             url="/connections"
             title="Co:nnections"
@@ -72,6 +52,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             title="Co-Creator"
             icon={<Deal />}
             label="Coming soon"
+            inactive={true}
           />
           {/* Add more links as needed */}
         </nav>
@@ -113,7 +94,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </Radio.Group>
         </div>
       </aside>
-      <main className="flex-1 py-10 px-16 bg-dashMain ml-[230px]">
+      <main className="flex-1 py-10 px-4 md:px-16 bg-dashMain md:ml-[230px]">
         {children}
       </main>
     </div>
