@@ -5,6 +5,7 @@ import { Tabs } from "antd";
 
 import DashboardLayout from "../dashboard/layout";
 import DiscoverContent from "./components/discover";
+import React from "react";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -28,7 +29,7 @@ const App: React.FC = () => (
 );
 
 // export default App;
-const ConnectionsPage = async () => {
+const ConnectionsPage: React.FC = () => {
   return (
     <DashboardLayout>
       <h1 className="font-medium text-3xl text-linkColor mb-3">Co:nnections</h1>
