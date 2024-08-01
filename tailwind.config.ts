@@ -19,7 +19,15 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xs: "1240px",
+      },
       colors: {
+        sidebarcolor: '#ecf8cb',
+        sidehover: '#C8E3AD',
+        linkColor: '#004A39',
+        dashMain: '#f2ffe9',
+        greenLight: '#bbfb00',
         "custom-green-night": "#0B150C",
         "custom-green-light": "#15803D",
         "custom-green-standard": "#14532D",
@@ -27,6 +35,10 @@ const config = {
         "custom-light": "#F3F4F6",
         "custom-green-oil": "#bafb00",
         "custom-gray": "#8996A9",
+        "auth-primary": "#C8E3AD",
+        "auth-secondary": "#ecf8cb",
+        "auth-text-color": "#004a39",
+        "auth-placeholder": "#597c74",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -67,6 +79,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -79,9 +95,10 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        // sans: ["var(--font-sans)", ...fontFamily.sans],
       },
     },
   },

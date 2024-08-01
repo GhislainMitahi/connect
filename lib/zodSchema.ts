@@ -1,5 +1,14 @@
 import { z } from "zod";
 
+export const OPTformRegister = z.object({
+  country: z.string().min(1, "Country is required"),
+  number: z.string().min(1, "Phone number is required")
+})
+
+export const otpSchema = z.object({
+  otp: z.string().min(5, "Your identification code is required").max(5, "OTP must be exactly 5 characters").regex(/^\d+$/, "OTP must contain only digits")
+});
+
 export const SignUpformSchema = z.object({
   firstName: z.string().min(2, {
     message: "First Name must be at least 2 characters.",
@@ -7,9 +16,9 @@ export const SignUpformSchema = z.object({
   lastName: z.string().min(2, {
     message: "last Name must be at least 2 characters.",
   }),
-  userName: z.string().min(2, {
-    message: "User Name must be at least 2 characters.",
-  }),
+  // userName: z.string().min(2, {
+  //   message: "User Name must be at least 2 characters.",
+  // }),
   email: z.string().email().min(2, {
     message: "Email must be at least 2 characters.",
   }),

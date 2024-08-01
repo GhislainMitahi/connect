@@ -3,8 +3,8 @@ import SeparatorDot from "./SeparatorDot";
 
 const Foot = () => {
   return (
-    <div className="flex justify-between w-[100%]">
-      <ul className="flex items-center gap-3 text-xs text-custom-gray tracking-wide">
+    <div className="md:flex justify-between w-[100%] hidden">
+      <ul className="flex items-center gap-3 text-sm text-custom-gray tracking-wide">
         <li>Terms</li>
         <SeparatorDot />
         <li>Privacy</li>
@@ -13,7 +13,7 @@ const Foot = () => {
         <SeparatorDot />
         <li>Helps</li>
       </ul>
-      <LanguageTrigger className="text-xs text-custom-gray" />
+      <LanguageTrigger className="text-sm text-custom-gray" />
     </div>
   );
 };

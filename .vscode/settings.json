@@ -6,9 +6,9 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.format": "explicit"
   },
-  "cSpell.words": ["nnect", "signin", "Signup"],
-  "[ignore]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
+  "cSpell.words": ["hookform", "nnect", "signin", "Signup"],
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
