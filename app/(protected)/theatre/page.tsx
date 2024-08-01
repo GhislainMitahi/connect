@@ -6,7 +6,7 @@ import DashboardLayout from "../dashboard/layout";
 import PlatfromContent from "./components/plateformContent";
 
 import type { RadioChangeEvent } from 'antd';
-import { TikTokFilled, XOutlined, YoutubeFilled, YoutubeOutlined } from "@ant-design/icons";
+import { TikTokFilled, XOutlined, YoutubeFilled, InstagramOutlined, TikTokOutlined } from "@ant-design/icons";
 
 const options = [
   { label: 'Instagram', value: 'list'},
@@ -29,24 +29,20 @@ const Theatre = () => {
       <div className="mb-16">
         <Radio.Group onChange={onChangePlateform} className="flex items-center rounded-md w-full" value={platfom} optionType="button" buttonStyle="solid">
           <Radio.Button value="instagram" className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]">
-            <div>
-              <p>Instagram</p>
-            </div>
+            <p className="hidden md:block">Instagram</p>
+            <InstagramOutlined className="md:hidden"/>
           </Radio.Button>
           <Radio.Button value="tiktok" className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]">
-            <div>
-              <p>TikTok</p>
-            </div>
+            <p className="hidden md:block">TikTok</p>
+            <TikTokOutlined className="md:hidden"/>
           </Radio.Button>
           <Radio.Button value="X" className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]">
-            <div>
-              <p>X(formerly Twitter)</p>
-            </div>
+            <p className="hidden md:block">X (formerly Twitter)</p>
+            <XOutlined className="md:hidden"/>
           </Radio.Button>
           <Radio.Button value="youtube" className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]">
-            <div>
-              <p>Youtube</p>
-            </div>
+            <p className="hidden md:block">Youtube</p>
+            <YoutubeFilled className="md:hidden"/>
           </Radio.Button>
         </Radio.Group>
       </div>
