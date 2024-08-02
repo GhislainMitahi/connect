@@ -36,6 +36,7 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string[]}
  */
 
+
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
 export const DEFAULT_REGISTER_REDIRECT = "/opt-auth/verification"
 export const DEFAULT_SUCCESS_REDIRECT = "/opt-auth/success"

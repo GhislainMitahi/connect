@@ -15,9 +15,9 @@ export default function RootLayout({
       <body>
         <main
           style={{ backgroundImage: "url('/bg-pattern.svg')" }}
-          className="flex h-full md:min-h-screen flex-col items-center justify-center bg-custom-green-night text-custom-light bg-no-repeat bg-cover"
+          className="flex min-h-screen flex-col items-center justify-center bg-custom-green-night text-custom-light bg-no-repeat bg-cover"
         >
-          <div className="w-full h-full md:h-[100vh] flex items-center justify-center signup-gb">
+          <div className="w-full min-h-screen flex items-center justify-center signup-gb">
             {children}
           </div>
         </main>

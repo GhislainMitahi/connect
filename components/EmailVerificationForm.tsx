@@ -37,9 +37,8 @@ const EmailVerificationForm = () => {
   //local state
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
   const { toast } = useToast();
-
+        
   // get the email from the url
   const encodedEmail = useSearchParams().get("email");
   const email = atob(encodedEmail!);

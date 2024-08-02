@@ -68,6 +68,7 @@ function SignIn() {
     try {
       setIsLoading(true);
       startTransition(async () => {
+        setIsLoading(true);
         const data = await login(values);
 
         if (data?.error) {

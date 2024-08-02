@@ -67,8 +67,8 @@ function ResetPassword() {
         form.reset();
         toast({
           variant: "default",
-          title: "Email Verification",
-          description: "Email verification successful",
+          title: "Request Password Reset",
+          description: "Password reset requested successfully",
           duration: 3000,
         });
         setIsLoading(false);
@@ -164,7 +164,7 @@ function ResetPassword() {
               className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
             >
               {" "}
-              {isLoading ? <Spinner /> : "Request"}
+              {isLoading ? <Spinner /> : "Reset"}
             </Button>
           </form>
         </div>

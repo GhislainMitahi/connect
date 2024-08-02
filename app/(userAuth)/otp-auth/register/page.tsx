@@ -46,7 +46,7 @@ export default function Page() {
   };
 
   return (
-    <main className="w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div className="w-[40%] flex flex-col gap-2">
         <div className="flex items-center flex-col">
           <ConnectLogo />
@@ -107,6 +107,6 @@ export default function Page() {
           </Button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }

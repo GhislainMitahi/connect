@@ -24,7 +24,7 @@ export default function Page() {
         </div>
         <Button
           onClick={() => {
-            router.push("/dashboard");
+            router.push("/signin");
           }}
           type="submit"
           className=" md:w-[20%] w-[100%] p-3 bg-auth-text-color mx-auto"
