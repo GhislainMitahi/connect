@@ -1,356 +1,310 @@
 "use client";
 
-import { AlignLeftOutlined, DownOutlined } from "@ant-design/icons";
-import { Radio } from "antd";
-import { useState } from "react";
+import { useWindowSize } from "@/app/hooks/useWindowsSize";
+import { poppins } from "@/lib/fonts";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Button, Layout, Menu, Radio, RadioChangeEvent } from "antd";
+import React, { useEffect, useState } from "react";
 
+import { CustomSession } from "@/app/types/next-auth";
+import MenuElement from "@/components/MenuElement";
+import Profile from "@/components/Profile";
+import SignOut from "@/components/shareds/SignOut";
 import Bolt from "@/components/svg/Bolt";
 import Code from "@/components/svg/code";
 import Connection from "@/components/svg/connection";
-import ConnectLogo from "@/components/svg/ConnectLogo";
 import Deal from "@/components/svg/deal";
 import NotificationBell from "@/components/svg/notification";
 import SettingIcon from "@/components/svg/setting";
 import Theatre from "@/components/svg/Theatre";
 import Vision from "@/components/svg/vision";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useSession } from "next-auth/react";
 
-import LinkIcons from "@/components/link";
-import type { RadioChangeEvent } from "antd";
-type TabPosition = "left" | "right" | "top" | "bottom";
+const { Header, Sider, Content } = Layout;
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // local states
+  const [collapsed, setCollapsed] = useState(false);
   const [mode, setMode] = useState<TabPosition>("top");
+  const { data, status } = useSession();
+  const [session, setSession] = useState<CustomSession | null>(null);
 
+  // use window size hook
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    if (status === "authenticated" && data) {
+      setSession(data as CustomSession);
+    } else {
+      setSession(null);
+    }
+  }, [data, status]);
+
+  useEffect(() => {
+    const collapseMenu = () => {
+      if (width <= 768) {
+        setCollapsed(true);
+      }
+    };
+
+    collapseMenu();
+  }, [width]);
+
+  //Methods
   const handleModeChange = (e: RadioChangeEvent) => {
     setMode(e.target.value);
   };
 
-  const handleToggleDrawer = () => {
-    setOpen(!open);
-  };
+  const menuData: menuItems[] = [
+    {
+      key: 0,
+      title: "Home",
+      url: "/dashboard",
+      icon: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Theatre />
+            </TooltipTrigger>
+            <TooltipContent className="bg-sidehover border border-slate-500">
+              <p className="text-linkColor">Home</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      isCollapsed: collapsed,
+    },
+    {
+      key: 1,
+      title: "Theatre",
+      url: "/theatre",
+      icon: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Theatre />
+            </TooltipTrigger>
+            <TooltipContent className="bg-sidehover border border-slate-500">
+              <p className="text-linkColor">Theatre</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      isCollapsed: collapsed,
+    },
+    {
+      key: 2,
+      title: "Vision",
+      url: "/vision",
+      icon: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Vision />
+            </TooltipTrigger>
+            <TooltipContent className="bg-sidehover border border-slate-500">
+              <p className="text-linkColor">Vision</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      isCollapsed: collapsed,
+    },
+    {
+      key: 3,
+      title: "Connections",
+      url: "/connections",
+      icon: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Connection />
+            </TooltipTrigger>
+            <TooltipContent className="bg-sidehover border border-slate-500">
+              <p className="text-linkColor">Connections</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      isCollapsed: collapsed,
+    },
+    {
+      key: 4,
+      title: "Co-Creator",
+      url: "/co-creator",
+      icon: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Deal />
+            </TooltipTrigger>
+            <TooltipContent className="bg-sidehover border border-slate-500">
+              <p className="text-linkColor">Co-Creator</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      label: "Soon",
+      isCollapsed: collapsed,
+    },
+  ];
 
   return (
-    // <div className="md:flex min-h-screen">
-    //   <aside className="w-[250px] hidden h-full bg-sidebarcolor py-8 px-4 md:flex flex-col justify-between fixed overflow-y-auto custom-scrollbar">
-    //     <nav className="flex flex-col pb-4 mb-32">
-    //       <div className="flex justify-between items-center bg-sidehover py-2 px-4 rounded-lg mb-8">
-    //         <div className="flex text-xs items-center justify-between gap-4 text-linkColor">
-    //           <ConnectLogo />
-    //           <div>
-    //             <p className="text-sm font-medium ">Creator</p>
-    //             <p className="">Alfred Wanjau</p>
-    //           </div>
-    //         </div>
-    //         <DownOutlined className="text-linkColor text-xs" />
-    //       </div>
-    //       <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />} />
-    //       <LinkIcons
-    //         url="/vision"
-    //         title="Vision"
-    //         icon={<Vision />}
-    //         inactive={true}
-    //       />
-    //       <LinkIcons
-    //         url="/connections"
-    //         title="Co:nnections"
-    //         icon={<Connection />}
-    //       />
-    //       <LinkIcons
-    //         url="/co-creator"
-    //         title="Co-Creator"
-    //         icon={<Deal />}
-    //         label="Coming soon"
-    //         inactive={true}
-    //       />
-    //       {/* Add more links as needed */}
-    //     </nav>
-    //     <div className="text-linkColor mb-8">
-    //       <p className="mb-1 font-semibold text-xs">Account</p>
-    //       <div className="flex flex-col gap-1 px-1">
-    //         <LinkIcons
-    //           url="/notifications"
-    //           title="Notifications"
-    //           icon={<NotificationBell />}
-    //         />
-    //         <LinkIcons
-    //           url="/settings"
-    //           title="Settings"
-    //           icon={<SettingIcon />}
-    //         />
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <Radio.Group
-    //         onChange={handleModeChange}
-    //         className="flex items-center justify-center mb-4"
-    //         value={mode}
-    //         optionType="button"
-    //         buttonStyle="solid"
-    //       >
-    //         <Radio.Button value="top">
-    //           <div className="flex items-center gap-2">
-    //             <Code />
-    //             <p>Test</p>
-    //           </div>
-    //         </Radio.Button>
-    //         <Radio.Button value="left">
-    //           <div className="flex items-center gap-2">
-    //             <Bolt />
-    //             <p>Live</p>
-    //           </div>
-    //         </Radio.Button>
-    //       </Radio.Group>
-    //     </div>
-    //   </aside>
-    //   <aside className="">
-    //     <div className="flex fixed w-full md:hidden z-50 justify-between items-center bg-sidebarcolor py-2 px-4 mb-8">
-    //       <div className="flex text-xs items-center justify-between gap-4 text-linkColor">
-    //         <ConnectLogo />
-    //         <div>
-    //           <p className="text-sm font-medium ">Creator</p>
-    //           <p className="">Alfred Wanjau</p>
-    //         </div>
-    //       </div>
-    //       <AlignLeftOutlined
-    //         className="text-linkColor"
-    //         onClick={handleToggleDrawer}
-    //       />
-    //     </div>
-    //     <div
-    //       className={`md:hidden fixed top-12 z-20 right-0 h-full w-64 bg-sidebarcolor shadow-lg transform transition-transform ${
-    //         open ? "translate-x-0" : "translate-x-full"
-    //       }`}
-    //     >
-    //       <nav className="p-4">
-    //         <LinkIcons
-    //           url="/theatre"
-    //           title="Theatre"
-    //           icon={<Theatre />}
-    //           onToggle={handleToggleDrawer}
-    //         />
-    //         <LinkIcons
-    //           url="/vision"
-    //           title="Vision"
-    //           icon={<Vision />}
-    //           inactive={true}
-    //         />
-    //         <LinkIcons
-    //           url="/connections"
-    //           title="Co:nnections"
-    //           icon={<Connection />}
-    //         />
-    //         <LinkIcons
-    //           url="/co-creator"
-    //           title="Co-Creator"
-    //           icon={<Deal />}
-    //           label="Coming soon"
-    //           inactive={true}
-    //         />
-    //         <div className="text-linkColor mb-8">
-    //           <p className="mb-1 font-semibold text-xs">Account</p>
-    //           <div className="flex flex-col gap-1 px-1">
-    //             <LinkIcons
-    //               url="/notifications"
-    //               title="Notifications"
-    //               icon={<NotificationBell />}
-    //             />
-    //             <LinkIcons
-    //               url="/settings"
-    //               title="Settings"
-    //               icon={<SettingIcon />}
-    //             />
-    //           </div>
-    //         </div>
-    //         <div>
-    //           <Radio.Group
-    //             onChange={handleModeChange}
-    //             className="flex items-center justify-center mb-4"
-    //             value={mode}
-    //             optionType="button"
-    //             buttonStyle="solid"
-    //           >
-    //             <Radio.Button value="top">
-    //               <div className="flex items-center gap-2">
-    //                 <Code />
-    //                 <p>Test</p>
-    //               </div>
-    //             </Radio.Button>
-    //             <Radio.Button value="left">
-    //               <div className="flex items-center gap-2">
-    //                 <Bolt />
-    //                 <p>Live</p>
-    //               </div>
-    //             </Radio.Button>
-    //           </Radio.Group>
-    //         </div>
-    //       </nav>
-    //     </div>
-    //   </aside>
-    //   <main className="flex-1 pt-20 md:py-10 px-4 md:px-16 bg-dashMain md:ml-[230px]">
-    //     {children}
-    //   </main>
-    // </div>
-    <div className="md:flex min-h-screen">
-      <aside className="w-[250px] hidden h-full bg-sidebarcolor py-8 px-4 md:flex flex-col justify-between fixed overflow-y-auto custom-scrollbar">
-        <header className="flex justify-between items-center bg-sidehover py-2 px-4 rounded-lg mb-8">
-          <div className="flex text-xs items-center justify-between gap-4 text-linkColor">
-            <ConnectLogo />
-            <div>
-              <p className="text-sm font-medium">Creator</p>
-              <p>Alfred Wanjau</p>
-            </div>
-          </div>
-          <DownOutlined className="text-linkColor text-xs" />
-        </header>
-        <nav className="flex flex-col pb-4 mb-32">
-          <LinkIcons url="/theatre" title="Theatre" icon={<Theatre />} />
-          <LinkIcons
-            url="/vision"
-            title="Vision"
-            icon={<Vision />}
-            inactive={true}
-          />
-          <LinkIcons
-            url="/connections"
-            title="Co:nnections"
-            icon={<Connection />}
-          />
-          <LinkIcons
-            url="/co-creator"
-            title="Co-Creator"
-            icon={<Deal />}
-            label="Coming soon"
-            inactive={true}
-          />
-        </nav>
-        <section className="text-linkColor mb-8">
-          <h2 className="mb-1 font-semibold text-xs">Account</h2>
-          <div className="flex flex-col gap-1 px-1">
-            <LinkIcons
-              url="/notifications"
-              title="Notifications"
-              icon={<NotificationBell />}
-            />
-            <LinkIcons
-              url="/settings"
-              title="Settings"
-              icon={<SettingIcon />}
-            />
-          </div>
-        </section>
-        <section>
-          <Radio.Group
-            onChange={handleModeChange}
-            className="flex items-center justify-center mb-4"
-            value={mode}
-            optionType="button"
-            buttonStyle="solid"
-          >
-            <Radio.Button value="top">
-              <div className="flex items-center gap-2">
-                <Code />
-                <p>Test</p>
-              </div>
-            </Radio.Button>
-            <Radio.Button value="left">
-              <div className="flex items-center gap-2">
-                <Bolt />
-                <p>Live</p>
-              </div>
-            </Radio.Button>
-          </Radio.Group>
-        </section>
-      </aside>
-      <div>
-        <header className="flex fixed w-full md:hidden z-50 justify-between items-center bg-sidebarcolor py-2 px-4 mb-8">
-          <div className="flex text-xs items-center justify-between gap-4 text-linkColor">
-            <ConnectLogo />
-            <div>
-              <p className="text-sm font-medium">Creator</p>
-              <p>Alfred Wanjau</p>
-            </div>
-          </div>
-          <AlignLeftOutlined
-            className="text-linkColor"
-            onClick={handleToggleDrawer}
-          />
-        </header>
-        <nav
-          className={`md:hidden fixed top-12 z-20 right-0 h-full w-64 bg-sidebarcolor shadow-lg transform transition-transform ${
-            open ? "translate-x-0" : "translate-x-full"
-          }`}
+    <main>
+      <Layout className="min-h-screen relative">
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          style={{
+            background: "#ecf8cb",
+          }}
         >
-          <div className="p-4">
-            <LinkIcons
-              url="/theatre"
-              title="Theatre"
-              icon={<Theatre />}
-              onToggle={handleToggleDrawer}
-            />
-            <LinkIcons
-              url="/vision"
-              title="Vision"
-              icon={<Vision />}
-              inactive={true}
-            />
-            <LinkIcons
-              url="/connections"
-              title="Co:nnections"
-              icon={<Connection />}
-            />
-            <LinkIcons
-              url="/co-creator"
-              title="Co-Creator"
-              icon={<Deal />}
-              label="Coming soon"
-              inactive={true}
-            />
-            <section className="text-linkColor mb-8">
-              <h2 className="mb-1 font-semibold text-xs">Account</h2>
-              <div className="flex flex-col gap-1 px-1">
-                <LinkIcons
-                  url="/notifications"
-                  title="Notifications"
-                  icon={<NotificationBell />}
-                />
-                <LinkIcons
-                  url="/settings"
-                  title="Settings"
-                  icon={<SettingIcon />}
-                />
+          <div className="h-full bg-sidebarcolor flex flex-col gap-6 px-4 border">
+            <div className="flex justify-center items-center">
+              <Profile
+                image="/english_flag.png"
+                isCollapsed={collapsed}
+                name={session?.user.name}
+              />
+            </div>
+            <Menu
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              style={{
+                background: "#ecf8cb",
+                height: "100%",
+                border: "none",
+              }}
+              className={poppins.className}
+            >
+              <div className="flex flex-col justify-between h-full ">
+                <div className="flex flex-col gap-2">
+                  {menuData.map((item, index) => (
+                    <MenuElement
+                      icon={item.icon}
+                      title={item.title}
+                      url={item.url}
+                      key={index}
+                      label={item.label}
+                      isCollapsed={item.isCollapsed}
+                    />
+                  ))}
+                </div>
+                <div className="">
+                  <section className="text-linkColor mb-8">
+                    <h2 className="mb-1 font-semibold text-xs">Account</h2>
+                    <div className="flex flex-col gap-1 px-1">
+                      <MenuElement
+                        icon={
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <NotificationBell />
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-sidehover border border-slate-500">
+                                <p className="text-linkColor">Notification</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        }
+                        title="Notifications"
+                        url="/notifications"
+                        key={989898989898989}
+                        isCollapsed={collapsed}
+                      />
+                      <MenuElement
+                        icon={
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <SettingIcon />
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-sidehover border border-slate-500">
+                                <p className="text-linkColor">Settings</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        }
+                        title="Settings"
+                        url="/settings"
+                        key={9009787865}
+                        isCollapsed={collapsed}
+                      />
+                    </div>
+                  </section>
+                  {!collapsed && (
+                    <section>
+                      <Radio.Group
+                        onChange={handleModeChange}
+                        className="flex items-center justify-center mb-4"
+                        value={mode}
+                        optionType="button"
+                        buttonStyle="solid"
+                      >
+                        <Radio.Button value="top">
+                          <div className="flex items-center gap-2">
+                            <Code />
+                            <p>Test</p>
+                          </div>
+                        </Radio.Button>
+                        <Radio.Button value="left">
+                          <div className="flex items-center gap-2">
+                            <Bolt />
+                            <p>Live</p>
+                          </div>
+                        </Radio.Button>
+                      </Radio.Group>
+                    </section>
+                  )}
+                </div>
               </div>
-            </section>
-            <section>
-              <Radio.Group
-                onChange={handleModeChange}
-                className="flex items-center justify-center mb-4"
-                value={mode}
-                optionType="button"
-                buttonStyle="solid"
-              >
-                <Radio.Button value="top">
-                  <div className="flex items-center gap-2">
-                    <Code />
-                    <p>Test</p>
-                  </div>
-                </Radio.Button>
-                <Radio.Button value="left">
-                  <div className="flex items-center gap-2">
-                    <Bolt />
-                    <p>Live</p>
-                  </div>
-                </Radio.Button>
-              </Radio.Group>
-            </section>
+            </Menu>
           </div>
-        </nav>
-      </div>
-      <main className="flex-1 pt-20 md:py-10 px-4 md:px-16 bg-dashMain md:ml-[230px]">
-        {children}
-      </main>
-    </div>
-  );
-};
+        </Sider>
+        <Layout style={{ backgroundColor: "#f2ffe9" }}>
+          <Header style={{ padding: 0, background: "#f2ffe9" }}>
+            <div className="flex items-center justify-between">
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => {
+                  setCollapsed(!collapsed);
+                }}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                  color: "#004A39",
+                  visibility: width <= 768 ? "hidden" : "visible",
+                }}
+              />
 
-export default DashboardLayout;
+              <SignOut />
+            </div>
+          </Header>
+          <Content
+            style={{
+              minHeight: 280,
+              background: "transparent",
+              overflow: "auto",
+            }}
+            className={`${poppins.className} h-[90vh] p-[24px] flex flex-col gap-4`}
+          >
+            {children}
+          </Content>
+        </Layout>
+      </Layout>
+    </main>
+  );
+}
