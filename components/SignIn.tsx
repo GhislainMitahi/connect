@@ -66,6 +66,7 @@ function SignIn() {
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
     try {
+      setIsLoading(true);
       startTransition(async () => {
         setIsLoading(true);
         const data = await login(values);

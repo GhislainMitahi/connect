@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/input-otp";
 
 import Spinner from "@/components/shareds/Spinner";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { server } from "@/lib/server";
 import axios from "axios";
 import { useState } from "react";
@@ -37,7 +37,8 @@ const EmailVerificationForm = () => {
   //local state
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  const { toast } = useToast();
+        
   // get the email from the url
   const encodedEmail = useSearchParams().get("email");
   const email = atob(encodedEmail!);
@@ -93,7 +94,7 @@ const EmailVerificationForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 flex flex-col justify-center items-center gap-4"
+        className="w-2/3 flex flex-col justify-center items-center gap-6"
       >
         <FormField
           control={form.control}

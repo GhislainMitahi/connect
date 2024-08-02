@@ -40,11 +40,7 @@ export const SignInformSchema = z.object({
 export const EmailRequestFormSchema = z.object({
   email: z.string().email().min(2, {
     message: "Email must be at least 2 characters.",
-  }),
-  password: z.string().min(2, {
-    message: "Password must be at least 8 characters.",
-  }),
-  rememberMe: z.boolean().default(false).optional(),
+  })
 });
 
 export const ResetPassWordFormSchema = z

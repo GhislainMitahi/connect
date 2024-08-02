@@ -23,7 +23,7 @@ import { useState } from "react";
 import Spinner from "./shareds/Spinner";
 import { useToast } from "./ui/use-toast";
 
-function RequestResetEmail() {
+const RequestResetEmail = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   //toast
@@ -39,13 +39,20 @@ function RequestResetEmail() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof EmailRequestFormSchema>) => {
+    setIsLoading(true);
     try {
       setIsLoading(true);
       const response = await server.post("/auth/request-password-reset", {
-        ...values,
+        email: values.email,
       });
 
+      console.log(
+        "Here is the data from requesting the email update ",
+        response.data
+      );
+
       if (response.data && response.data.status === 200) {
+        setIsLoading(false);
         form.reset();
         toast({
           variant: "default",
@@ -53,16 +60,9 @@ function RequestResetEmail() {
           description: "Password reset requested successfully",
           duration: 3000,
         });
-        setIsLoading(false);
-        router.push("/reset-password");
-      } else {
-        setIsLoading(false);
-        throw new Error(
-          response.data.message || "Unknown error during sign up"
-        );
+        router.push(`/reset-password?token=${response.data.data}`);
       }
     } catch (error) {
-      setIsLoading(false);
       console.error(error);
       let errorMessage = "An unexpected error occurred";
       if (axios.isAxiosError(error)) {
@@ -78,6 +78,7 @@ function RequestResetEmail() {
         description: errorMessage,
         duration: 3000,
       });
+      setIsLoading(false);
     }
   };
   return (
@@ -85,6 +86,7 @@ function RequestResetEmail() {
       <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
         <div className=" w-full flex flex-col justify-center items-center px-8 pt-8">
           <div className="w-full flex flex-col gap-4 justify-center items-center"></div>
+          ghislain
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-4"
@@ -133,6 +135,6 @@ function RequestResetEmail() {
       </div>
     </Form>
   );
-}
+};
 
 export default RequestResetEmail;

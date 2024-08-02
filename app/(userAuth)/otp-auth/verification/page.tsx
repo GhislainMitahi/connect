@@ -7,7 +7,7 @@ import Spinner from "@/components/shareds/Spinner";
 import ConnectLogo from "@/components/svg/ConnectLogo";
 
 const EmailVerificationForm = dynamic(
-  () => import("../../../../components/EmailVerificationForm"),
+  () => import("@/components/EmailVerificationForm"),
   {
     ssr: false,
   }

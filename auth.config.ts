@@ -33,7 +33,6 @@ export default {
                                 password,
                             }
                         );
-                        console.log("Here is the data of an existing user after login", response)
                         const data = response.data;
 
                         if (response.status !== 201 || !data?.user || !data.access_token) {
