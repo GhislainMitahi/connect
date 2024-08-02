@@ -4,7 +4,7 @@
 
 // import { Button, Divider, Input, Modal, Radio } from "antd";
 // import { AlignLeftOutlined, AppstoreOutlined, InstagramFilled,
-  // SearchOutlined, TikTokFilled, XOutlined, YoutubeFilled,
+// SearchOutlined, TikTokFilled, XOutlined, YoutubeFilled,
 // } from "@ant-design/icons";
 
 // import SocialsPlateform from "./plateform";
@@ -44,7 +44,6 @@
 //     console.log(list)
 //   }
 
-
 //   return (
 //     <div>
 //       <div className='flex justify-between items-center gap-4 mb-16 mt-4'>
@@ -62,11 +61,11 @@
 //           </Radio.Group>
 //         </div>
 //       </div>
-      
+
 //       {list === 'list' ? (
 //         <div>
-//           <SocialsPlateform 
-//             icon={<InstagramFilled className='text-2xl' color='#000' />} 
+//           <SocialsPlateform
+//             icon={<InstagramFilled className='text-2xl' color='#000' />}
 //             socialPlateform="Instagram"
 //             description='Elevate your social media game by seamlessly connecting your Instagram account to Co-nnect.'
 //             btnText='connected'
@@ -74,29 +73,29 @@
 //             onButtonClick={() => showModal(<PlateformModal icon={<InstagramFilled className="text-2xl" color="#000"/>} plateformName="Instagram" btnText="connect" btnColor=""/>)}
 //           />
 //           <Divider />
-//           <SocialsPlateform 
-//             icon={<XOutlined className='text-2xl' color='#000' />} 
+//           <SocialsPlateform
+//             icon={<XOutlined className='text-2xl' color='#000' />}
 //             socialPlateform="X (formerly Twitter)"
 //             description='Boost your social media strategy by seamlessly connecting your X account to Co-nnect.'
-//             btnText='coming soon' 
+//             btnText='coming soon'
 //             btnColor='#C8E3AD'
 //             onButtonClick={() => showModal(<PlateformModal  icon={<XOutlined className="text-2xl" color="#000"/>} plateformName="X (formerly Twitter)" btnText="connect" btnColor="red"/>)}
 //           />
 //           <Divider />
-//           <SocialsPlateform 
-//             icon={<TikTokFilled className='text-2xl' color='#000' />} 
+//           <SocialsPlateform
+//             icon={<TikTokFilled className='text-2xl' color='#000' />}
 //             socialPlateform="Tik Tok"
 //             description='Elevate your social media strategy by seamlessly connecting your TikTok account to Co-nnect.'
-//             btnText='coming soon' 
+//             btnText='coming soon'
 //             btnColor='#c8e3ad'
 //             onButtonClick={() => showModal(<PlateformModal  icon={<TikTokFilled className="text-2xl" color="#000"/>} plateformName="TikTok" btnText="connect" btnColor="red"/>)}
 //           />
 //           <Divider />
-//           <SocialsPlateform 
-//             icon={<YoutubeFilled className='text-2xl' color='#000' />} 
+//           <SocialsPlateform
+//             icon={<YoutubeFilled className='text-2xl' color='#000' />}
 //             socialPlateform="Youtube"
 //             description='Elevate your social media strategy by seamlessly connecting your YouTube account to Co-nnect.'
-//             btnText='coming soon' 
+//             btnText='coming soon'
 //             btnColor='#c8e3ad'
 //             onButtonClick={() => showModal(<PlateformModal  icon={<YoutubeFilled className="text-2xl" color="#000"/>} plateformName="Youtube" btnText="connect" btnColor="red"/>)}
 //           />
@@ -104,8 +103,8 @@
 //       ) : (
 //         <div className="grid grid-cols-3 gap-8">
 //           <div className="border border-[#C8E3AD] rounded-[8px] p-4">
-//             <SocialsPlateform 
-//               icon={<InstagramFilled className='text-2xl' color='#000' />} 
+//             <SocialsPlateform
+//               icon={<InstagramFilled className='text-2xl' color='#000' />}
 //               socialPlateform="Instagram"
 //               description='Elevate your social media game by seamlessly connecting your Instagram account to Co-nnect.'
 //               btnText='connected'
@@ -115,33 +114,33 @@
 //             />
 //           </div>
 //           <div className="border border-[#C8E3AD] rounded-[8px] p-4">
-//             <SocialsPlateform 
-//               icon={<XOutlined className='text-2xl' color='#000' />} 
+//             <SocialsPlateform
+//               icon={<XOutlined className='text-2xl' color='#000' />}
 //               socialPlateform="X (formerly Twitter)"
 //               description='Boost your social media strategy by seamlessly connecting your X account to Co-nnect.'
-//               btnText='coming soon' 
+//               btnText='coming soon'
 //               btnColor='#C8E3AD'
 //               onButtonClick={() => showModal(<PlateformModal  icon={<XOutlined className="text-2xl" color="#000"/>} plateformName="X (formerly Twitter)" btnText="connect" btnColor="red"/>)}
 //               grid={true}
 //             />
 //           </div>
 //           <div className="border border-[#C8E3AD] rounded-[8px] p-4">
-//             <SocialsPlateform 
-//               icon={<TikTokFilled className='text-2xl' color='#000' />} 
+//             <SocialsPlateform
+//               icon={<TikTokFilled className='text-2xl' color='#000' />}
 //               socialPlateform="Tik Tok"
 //               description='Elevate your social media strategy by seamlessly connecting your TikTok account to Co-nnect.'
-//               btnText='coming soon' 
+//               btnText='coming soon'
 //               btnColor='#c8e3ad'
 //               onButtonClick={() => showModal(<PlateformModal  icon={<TikTokFilled className="text-2xl" color="#000"/>} plateformName="TikTok" btnText="connect" btnColor="red"/>)}
 //               grid={true}
 //             />
 //           </div>
 //           <div className="border border-[#C8E3AD] rounded-[8px] p-4">
-//             <SocialsPlateform 
-//               icon={<YoutubeFilled className='text-2xl' color='#000' />} 
+//             <SocialsPlateform
+//               icon={<YoutubeFilled className='text-2xl' color='#000' />}
 //               socialPlateform="Youtube"
 //               description='Elevate your social media strategy by seamlessly connecting your YouTube account to Co-nnect.'
-//               btnText='coming soon' 
+//               btnText='coming soon'
 //               btnColor='#c8e3ad'
 //               onButtonClick={() => showModal(<PlateformModal  icon={<YoutubeFilled className="text-2xl" color="#000"/>} plateformName="Youtube" btnText="connect" btnColor="red"/>)}
 //               grid={true}
@@ -149,7 +148,7 @@
 //           </div>
 //         </div>
 //       )}
-      
+
 //       <Divider />
 //       <Modal
 //         title=""
@@ -187,63 +186,67 @@
 
 import { useState } from "react";
 
-import { Button, Divider, Input, Modal, Radio } from "antd";
 import {
   AlignLeftOutlined,
   AppstoreOutlined,
   InstagramFilled,
   SearchOutlined,
-  TwitterOutlined,
   TikTokFilled,
+  TwitterOutlined,
   YoutubeFilled,
 } from "@ant-design/icons";
+import { Button, Divider, Input, Modal, Radio } from "antd";
 
+import PlateformModal from "./platefomModal";
 import SocialsPlateform from "./plateform";
-import PlateformModal from "../../common/platefomModal";
 
-import type { RadioChangeEvent } from 'antd';
+import type { RadioChangeEvent } from "antd";
 
 const options = [
-  { label: 'list', value: 'list' },
-  { label: 'grid', value: 'grid' },
+  { label: "list", value: "list" },
+  { label: "grid", value: "grid" },
 ];
 
 const socialPlatforms = [
   {
-    icon: <InstagramFilled className='text-2xl' color='#000' />,
+    icon: <InstagramFilled className="text-2xl" color="#000" />,
     socialPlatform: "Instagram",
-    description: 'Elevate your social media game by seamlessly connecting your Instagram account to Co-nnect.',
-    btnText: 'connected',
-    btnColor: '#004A39',
+    description:
+      "Elevate your social media game by seamlessly connecting your Instagram account to Co-nnect.",
+    btnText: "connected",
+    btnColor: "#004A39",
   },
   {
-    icon: <TwitterOutlined className='text-2xl' color='#000' />,
+    icon: <TwitterOutlined className="text-2xl" color="#000" />,
     socialPlatform: "X (formerly Twitter)",
-    description: 'Boost your social media strategy by seamlessly connecting your X account to Co-nnect.',
-    btnText: 'coming soon',
-    btnColor: '#C8E3AD',
+    description:
+      "Boost your social media strategy by seamlessly connecting your X account to Co-nnect.",
+    btnText: "coming soon",
+    btnColor: "#C8E3AD",
   },
   {
-    icon: <TikTokFilled className='text-2xl' color='#000' />,
+    icon: <TikTokFilled className="text-2xl" color="#000" />,
     socialPlatform: "TikTok",
-    description: 'Elevate your social media strategy by seamlessly connecting your TikTok account to Co-nnect.',
-    btnText: 'coming soon',
-    btnColor: '#c8e3ad',
+    description:
+      "Elevate your social media strategy by seamlessly connecting your TikTok account to Co-nnect.",
+    btnText: "coming soon",
+    btnColor: "#c8e3ad",
   },
   {
-    icon: <YoutubeFilled className='text-2xl' color='#000' />,
+    icon: <YoutubeFilled className="text-2xl" color="#000" />,
     socialPlatform: "Youtube",
-    description: 'Elevate your social media strategy by seamlessly connecting your YouTube account to Co-nnect.',
-    btnText: 'coming soon',
-    btnColor: '#c8e3ad',
+    description:
+      "Elevate your social media strategy by seamlessly connecting your YouTube account to Co-nnect.",
+    btnText: "coming soon",
+    btnColor: "#c8e3ad",
   },
 ];
 
 const DiscoverContent = () => {
-  const [list, setList] = useState<string>('list');
+  const [list, setList] = useState<string>("list");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const showModal = (content: React.ReactNode) => {
     setModalContent(content);
@@ -265,22 +268,22 @@ const DiscoverContent = () => {
     console.log(list);
   };
 
-  const filteredPlatforms = socialPlatforms.filter(platform =>
+  const filteredPlatforms = socialPlatforms.filter((platform) =>
     platform.socialPlatform.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div>
-      <div className='flex justify-between items-center gap-4 mb-16 mt-4'>
+      <div className="flex justify-between items-center gap-4 mb-16 mt-4">
         <Input
-          size='large'
+          size="large"
           prefix={<SearchOutlined />}
-          placeholder='Search connections'
-          className='bg-sidehover focus:bg-sidehover h-10 focus:outline-none focus:ring-2 hover:bg-sidehover active:bg-sidehover'
+          placeholder="Search connections"
+          className="bg-sidehover focus:bg-sidehover h-10 focus:outline-none focus:ring-2 hover:bg-sidehover active:bg-sidehover"
           value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <div className='hidden md:flex items-center gap-4 rounded-md bg-sidehover'>
+        <div className="hidden md:flex items-center gap-4 rounded-md bg-sidehover">
           <Radio.Group
             onChange={onChangeList}
             className="flex items-center"
@@ -298,7 +301,7 @@ const DiscoverContent = () => {
         </div>
       </div>
 
-      {list === 'list' ? (
+      {list === "list" ? (
         <div>
           {filteredPlatforms.map((platform, index) => (
             <div key={index}>
@@ -326,7 +329,10 @@ const DiscoverContent = () => {
       ) : (
         <div className="grid grid-cols-3 gap-8">
           {filteredPlatforms.map((platform, index) => (
-            <div key={index} className="border border-[#C8E3AD] rounded-[8px] p-4">
+            <div
+              key={index}
+              className="border border-[#C8E3AD] rounded-[8px] p-4"
+            >
               <SocialsPlateform
                 icon={platform.icon}
                 plateformName={platform.socialPlatform}

@@ -30,12 +30,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignInformSchema } from "@/lib/zodSchema";
+import Spinner from "./shareds/Spinner";
 import Facebook from "./svg/Facebook";
 import Google from "./svg/Google";
 
 function SignIn() {
   //Local states
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -63,33 +66,36 @@ function SignIn() {
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
     try {
+      setIsLoading(true);
       startTransition(async () => {
         const data = await login(values);
 
         if (data?.error) {
+          setIsLoading(false);
           toast({
             variant: "destructive",
             title: "Login Failed",
             description: `${data.error}`,
-            duration: 5000,
+            duration: 3000,
           });
         } else {
+          setIsLoading(false);
           toast({
             variant: "default",
             title: "Login Successful",
             description: "You have successfully logged in!",
-            duration: 5000,
+            duration: 3000,
           });
         }
       });
     } catch (error) {
-      console.error("Error logging in with credentials", error);
+      setIsLoading(false);
       toast({
         variant: "destructive",
         title: "System Error",
         description:
           "Unable to process your login request. Please try again later.",
-        duration: 5000,
+        duration: 3000,
       });
     }
   };
@@ -98,7 +104,7 @@ function SignIn() {
     <Form {...form}>
       <div className="w-full flex flex-col justify-center items-center  bg-custom-green-standard bg-opacity-15 rounded-xl">
         <div className="w-full flex flex-col justify-between items-center px-4 md:px-8 pt-8">
-          <div className="w-full flex items-center justify-center gap-3 pb-4">
+          <div className="w-full flex md:flex-row flex-col items-center justify-center gap-3 pb-4">
             <Button
               className="w-full flex gap-4 bg-opacity-15 hover:bg-custom-green-light bg-[#FFFFFF] text-custom-light"
               onClick={() => handleLoginWithSocial("google")}
@@ -196,10 +202,11 @@ function SignIn() {
               )}
             />
             <Button
-              className="text-base  bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
+              className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
             >
-              Login
+              {" "}
+              {isLoading ? <Spinner /> : "Signin"}
             </Button>
           </form>
         </div>

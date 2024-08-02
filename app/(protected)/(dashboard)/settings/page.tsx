@@ -4,7 +4,6 @@ import { CustomSession } from "@/app/types/next-auth";
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import DashboardLayout from "../dashboard/layout";
 
 const SettingsPage = () => {
   const [session, setSession] = useState<CustomSession | null>(null);
@@ -19,7 +18,7 @@ const SettingsPage = () => {
   }, [data, status]);
 
   return (
-    <DashboardLayout>
+    <main>
       <h1>Settings page</h1>
       <div className="">
         <p>name: {session?.user.name}</p>
@@ -31,7 +30,7 @@ const SettingsPage = () => {
           Sign out
         </Button>
       </div>
-    </DashboardLayout>
+    </main>
   );
 };
 

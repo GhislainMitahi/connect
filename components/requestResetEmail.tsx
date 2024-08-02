@@ -14,10 +14,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { server } from "@/lib/server";
 import { EmailRequestFormSchema } from "@/lib/zodSchema";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Spinner from "./shareds/Spinner";
+import { useToast } from "./ui/use-toast";
 
-function RequestResetEmail() {
+const RequestResetEmail = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  //toast
+  const { toast } = useToast();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof EmailRequestFormSchema>>({
     resolver: zodResolver(EmailRequestFormSchema),
@@ -27,17 +38,55 @@ function RequestResetEmail() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof EmailRequestFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    form.reset();
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof EmailRequestFormSchema>) => {
+    setIsLoading(true);
+    try {
+      setIsLoading(true);
+      const response = await server.post("/auth/request-password-reset", {
+        email: values.email,
+      });
+
+      console.log(
+        "Here is the data from requesting the email update ",
+        response.data
+      );
+
+      if (response.data && response.data.status === 200) {
+        setIsLoading(false);
+        form.reset();
+        toast({
+          variant: "default",
+          title: "Request Password Reset",
+          description: "Password reset requested successfully",
+          duration: 3000,
+        });
+        router.push(`/reset-password?token=${response.data.data}`);
+      }
+    } catch (error) {
+      console.error(error);
+      let errorMessage = "An unexpected error occurred";
+      if (axios.isAxiosError(error)) {
+        console.log(errorMessage);
+        errorMessage = error.response?.data?.error || error.message;
+      } else if (error instanceof Error) {
+        console.log(errorMessage);
+        errorMessage = error.message;
+      }
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: errorMessage,
+        duration: 3000,
+      });
+      setIsLoading(false);
+    }
+  };
   return (
     <Form {...form}>
       <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
         <div className=" w-full flex flex-col justify-center items-center px-8 pt-8">
           <div className="w-full flex flex-col gap-4 justify-center items-center"></div>
+          ghislain
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-4"
@@ -62,10 +111,11 @@ function RequestResetEmail() {
               )}
             />
             <Button
-              className=" bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
+              className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
             >
-              Request
+              {" "}
+              {isLoading ? <Spinner /> : "Request"}
             </Button>
           </form>
         </div>
@@ -85,6 +135,6 @@ function RequestResetEmail() {
       </div>
     </Form>
   );
-}
+};
 
 export default RequestResetEmail;

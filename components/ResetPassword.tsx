@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,10 +16,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { server } from "@/lib/server";
 import { ResetPassWordFormSchema } from "@/lib/zodSchema";
+import { EyeFilled, EyeInvisibleFilled, LockOutlined } from "@ant-design/icons";
+import axios from "axios";
 import Link from "next/link";
+import { useState } from "react";
+import Spinner from "./shareds/Spinner";
 
 function ResetPassword() {
+  //local state
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const router = useRouter();
+
+  const { toast } = useToast();
+
+  // get the email from the url
+  const token = useSearchParams().get("token");
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowPasswordConfirm = () => {
+    setShowPasswordConfirm(!showPasswordConfirm);
+  };
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof ResetPassWordFormSchema>>({
     resolver: zodResolver(ResetPassWordFormSchema),
@@ -28,12 +55,47 @@ function ResetPassword() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof ResetPassWordFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    form.reset();
-    console.log(values);
-  }
+  const onSubmit = async (data: z.infer<typeof ResetPassWordFormSchema>) => {
+    try {
+      setIsLoading(true);
+      const response = await server.post("/auth/reset-password", {
+        token: token,
+        newPassword: data.password,
+      });
+
+      if (response.data && response.data.status === 200) {
+        form.reset();
+        toast({
+          variant: "default",
+          title: "Email Verification",
+          description: "Email verification successful",
+          duration: 3000,
+        });
+        setIsLoading(false);
+        router.push("/signin");
+      } else {
+        setIsLoading(false);
+        throw new Error(
+          response.data.message || "Unknown error during sign up"
+        );
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+      let errorMessage = "An unexpected error occurred";
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast({
+        variant: "destructive",
+        title: "Verification Failed",
+        description: errorMessage,
+        duration: 3000,
+      });
+    }
+  };
   return (
     <Form {...form}>
       <div className="w-[100%] flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
@@ -53,10 +115,15 @@ function ResetPassword() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="0000000000"
                       {...field}
+                      leftIcon={<LockOutlined />}
+                      rightIcon={
+                        showPassword ? <EyeInvisibleFilled /> : <EyeFilled />
+                      }
+                      onRightClick={handleShowPassword}
                     />
                   </FormControl>
                   <FormMessage className="text-[12px]" />
@@ -73,10 +140,19 @@ function ResetPassword() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type="password"
+                      type={showPasswordConfirm ? "text" : "password"}
                       className="border-none onFocus-none onBlur-none bg-opacity-15 bg-[#FFFFFF] text-custom-light placeholder:text-custom-gray text-[12px]"
                       placeholder="0000000000"
                       {...field}
+                      leftIcon={<LockOutlined />}
+                      rightIcon={
+                        showPasswordConfirm ? (
+                          <EyeInvisibleFilled />
+                        ) : (
+                          <EyeFilled />
+                        )
+                      }
+                      onRightClick={handleShowPasswordConfirm}
                     />
                   </FormControl>
                   <FormMessage className="text-[12px]" />
@@ -84,10 +160,11 @@ function ResetPassword() {
               )}
             />
             <Button
-              className=" bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
               type="submit"
+              className="bg-custom-green-oil hover:bg-custom-green-light text-custom-green-night hover:text-custom-light"
             >
-              Request
+              {" "}
+              {isLoading ? <Spinner /> : "Request"}
             </Button>
           </form>
         </div>

@@ -3,9 +3,8 @@
 import type { TabsProps } from "antd";
 import { Tabs } from "antd";
 
-import DashboardLayout from "../dashboard/layout";
-import DiscoverContent from "./components/discover";
 import React from "react";
+import DiscoverContent from "../../../../components/discover";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -31,12 +30,12 @@ const App: React.FC = () => (
 // export default App;
 const ConnectionsPage: React.FC = () => {
   return (
-    <DashboardLayout>
+    <main>
       <h1 className="font-medium text-3xl text-linkColor mb-3">Co:nnections</h1>
       <div className="">
         <App />
       </div>
-    </DashboardLayout>
+    </main>
   );
 };
 

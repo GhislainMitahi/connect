@@ -1,6 +1,12 @@
-import ResetPassword from "@/components/ResetPassword";
 import Foot from "@/components/shareds/Foot";
+import Spinner from "@/components/shareds/Spinner";
 import ConnectLogo from "@/components/svg/ConnectLogo";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const ResetPassword = dynamic(() => import("@/components/ResetPassword"), {
+  ssr: false,
+});
 
 const page = () => {
   return (
@@ -8,7 +14,15 @@ const page = () => {
       <div className="flex flex-col items-center text-lg tracking-wide justify-center gap-4">
         <ConnectLogo /> <p>Co:nnect</p>
       </div>
-      <ResetPassword />
+      <Suspense
+        fallback={
+          <div className="bg-linkColor flex justify-center items-center w-[20%] h-[20%]">
+            <Spinner />
+          </div>
+        }
+      >
+        <ResetPassword />
+      </Suspense>
       <Foot />
     </div>
   );

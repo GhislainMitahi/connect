@@ -1,5 +1,3 @@
-"use server"
-
 import Axios from 'axios';
 
 const server = Axios.create({
