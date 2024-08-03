@@ -27,6 +27,13 @@ interface menuItems {
   icon: React.ReactElement;
   url: string;
   isCollapsed: boolean;
+  disabled?: boolean;
 }
 
 type TabPosition = "left" | "right" | "top" | "bottom";
+
+interface profilePropsType {
+  image: string;
+  name?: string;
+  isCollapsed: boolean;
+}

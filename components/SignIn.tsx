@@ -207,7 +207,7 @@ function SignIn() {
               type="submit"
             >
               {" "}
-              {isLoading ? <Spinner /> : "Signin"}
+              {isLoading ? <Spinner /> : "Login"}
             </Button>
           </form>
         </div>
@@ -218,8 +218,8 @@ function SignIn() {
           <div className="text-xs text-custom-gray px-4 py-4 text-center">
             <p className="text-sm">
               Don't have an account?{" "}
-              <Link href="/signup" className="text-custom-green-oil">
-                Sign Up
+              <Link href="/signup" className="text-custom-green-oil text-sm">
+                sign up
               </Link>
             </p>
           </div>
