@@ -19,7 +19,7 @@ const MenuElement = ({
     >
       <Link
         href={url}
-        className="flex gap-1 items-center w-full ease-in-out duration-200 text-normal"
+        className="flex gap-1 items-center w-full ease-in-out duration-200 text-normal text-linkColor hover:text-linkColor"
       >
         {isCollapsed ? (
           <p className="flex justify-center items-center w-full">{icon}</p>
