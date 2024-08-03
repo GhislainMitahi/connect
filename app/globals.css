@@ -92,7 +92,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color:  #c8e3ad80;
+  background-color: #c8e3ad80;
   border-radius: 10px;
   border: 3px solid #ecf8cb;
 }
@@ -130,4 +130,12 @@
 .custom-select option:focus {
   background-color: #bafb00;
   color: #000;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu {
+  background-color: #c8e3ad !important;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item {
+  background-color: #c8e3ad !important;
 }

@@ -6,7 +6,7 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.format": "explicit"
   },
-  "cSpell.words": ["nnect", "shareds", "signin", "Signup"],
+  "cSpell.words": ["nnect", "shareds", "signin", "signout", "Signup"],
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },

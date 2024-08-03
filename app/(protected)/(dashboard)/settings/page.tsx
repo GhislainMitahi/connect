@@ -23,6 +23,7 @@ const SettingsPage = () => {
       <div className="">
         <p>name: {session?.user.name}</p>
         <p>email: {session?.user.email}</p>
+        {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
         <Button
           onClick={() => signOut()}
           className="bg-sidehover text-green-800 hover:bg-sidehover"

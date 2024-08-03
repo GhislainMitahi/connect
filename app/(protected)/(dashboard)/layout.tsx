@@ -2,14 +2,13 @@
 
 import { useWindowSize } from "@/app/hooks/useWindowsSize";
 import { poppins } from "@/lib/fonts";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { PicLeftOutlined, PicRightOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, Radio, RadioChangeEvent } from "antd";
 import React, { useEffect, useState } from "react";
 
 import { CustomSession } from "@/app/types/next-auth";
 import MenuElement from "@/components/MenuElement";
 import Profile from "@/components/Profile";
-import SignOut from "@/components/shareds/SignOut";
 import Bolt from "@/components/svg/Bolt";
 import Code from "@/components/svg/code";
 import Connection from "@/components/svg/connection";
@@ -157,6 +156,7 @@ export default function DashboardLayout({
       ),
       label: "Soon",
       isCollapsed: collapsed,
+      disabled: true,
     },
   ];
 
@@ -199,6 +199,7 @@ export default function DashboardLayout({
                       key={index}
                       label={item.label}
                       isCollapsed={item.isCollapsed}
+                      disabled={item.disabled}
                     />
                   ))}
                 </div>
@@ -278,7 +279,7 @@ export default function DashboardLayout({
             <div className="flex items-center justify-between">
               <Button
                 type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                icon={collapsed ? <PicRightOutlined /> : <PicLeftOutlined />}
                 onClick={() => {
                   setCollapsed(!collapsed);
                 }}
@@ -287,11 +288,9 @@ export default function DashboardLayout({
                   width: 64,
                   height: 64,
                   color: "#004A39",
-                  visibility: width <= 768 ? "hidden" : "visible",
+                  // visibility: width <= 768 ? "hidden" : "visible",
                 }}
               />
-
-              <SignOut />
             </div>
           </Header>
           <Content
