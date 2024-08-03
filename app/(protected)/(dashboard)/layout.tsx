@@ -14,6 +14,7 @@ import Bolt from "@/components/svg/Bolt";
 import Code from "@/components/svg/code";
 import Connection from "@/components/svg/connection";
 import Deal from "@/components/svg/deal";
+import Home from "@/components/svg/Home";
 import NotificationBell from "@/components/svg/notification";
 import SettingIcon from "@/components/svg/setting";
 import Theatre from "@/components/svg/Theatre";
@@ -74,7 +75,7 @@ export default function DashboardLayout({
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <Theatre />
+              <Home />
             </TooltipTrigger>
             <TooltipContent className="bg-sidehover border border-slate-500">
               <p className="text-linkColor">Home</p>
