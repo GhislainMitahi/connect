@@ -38,7 +38,7 @@ export const {
 
         if (response.data.message !== "success" && response.data.statusCode >= 400) {
           console.error('JWT callback - Error from server:', response.data.message);
-          token.error = "Session expired. Please log in again.";
+          token.warn = "Session expired. Please log in again.";
           return token;
         }
 
