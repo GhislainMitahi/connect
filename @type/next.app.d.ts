@@ -19,6 +19,7 @@ interface menuItems {
   url: string;
   label?: string;
   isCollapsed: boolean;
+  toggleDrawer?: () => void
 }
 
 interface menuItems {
