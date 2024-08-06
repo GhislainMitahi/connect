@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { server } from "@/lib/server";
+import server from "@/lib/server";
 import { SignUpformSchema } from "@/lib/zodSchema";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import axios from "axios";
@@ -111,7 +111,7 @@ function SignUp() {
   return (
     <Form {...form}>
       <div className="w-[100%] h-full flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
-        <div className=" w-full flex flex-col justify-center items-center px-8 pt-8">
+        <div className=" w-full flex flex-col justify-center items-center px-1 md:px-8 pt-8">
           <div className="w-full flex flex-col gap-4 justify-center items-center">
             <h3 className="text-custom-slate text-sm tracking-wide">
               Register With:
