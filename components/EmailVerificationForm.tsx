@@ -23,7 +23,7 @@ import {
 
 import Spinner from "@/components/shareds/Spinner";
 import { useToast } from "@/components/ui/use-toast";
-import { server } from "@/lib/server";
+import server from "@/lib/server";
 import axios from "axios";
 import { useState } from "react";
 

@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { server } from "@/lib/server";
+import server from "@/lib/server";
 import { EmailRequestFormSchema } from "@/lib/zodSchema";
 import axios from "axios";
 import Link from "next/link";
