@@ -43,7 +43,7 @@ const MenuElement = ({
       ) : (
         <Link
           href={url}
-          className="flex gap-3 py-1 items-center w-full ease-in-out duration-200 text-normal text-linkColor hover:text-linkColor"
+          className="flex gap-3 items-center w-full ease-in-out duration-200 text-normal text-linkColor hover:text-linkColor"
           onClick={toggleDrawer}
         >
           {isCollapsed ? (
@@ -55,7 +55,7 @@ const MenuElement = ({
             <div className="ease-in-out duration-150 text-normal text-linkColor flex justify-between gap-1 items-center">
               <p className="text-sm">{title}</p>
               {label && (
-                <p className="bg-greenLight px-[4px] py-2 rounded-sm text-[0.5rem]">
+                <p className="bg-greenLight px-[4px] py-1 ml-4 rounded-sm text-[0.5rem]">
                   {label}
                 </p>
               )}
