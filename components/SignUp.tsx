@@ -111,7 +111,7 @@ function SignUp() {
   return (
     <Form {...form}>
       <div className="w-[100%] h-full flex flex-col justify-center items-center bg-custom-green-standard bg-opacity-15 rounded-xl">
-        <div className=" w-full flex flex-col justify-center items-center px-1 md:px-8 pt-8">
+        <div className=" w-full flex flex-col justify-center items-center px-1 md:px-8 pt-4">
           <div className="w-full flex flex-col gap-4 justify-center items-center">
             <h3 className="text-custom-slate text-sm tracking-wide">
               Register With:

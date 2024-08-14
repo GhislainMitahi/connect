@@ -17,7 +17,18 @@ const Profile = ({ image, name, isCollapsed }: profilePropsType) => {
         <div
           className={` custom-dropdown-label text-[0.75rem] md:text-[0.85rem] font-[400]  flex items-center gap-2 px-4 text-linkColor ${poppins.className}`}
         >
-          Sign Out <LogoutOutlined />
+          <LogoutOutlined /> Sign out
+        </div>
+      ),
+      key: "signout",
+      onClick: () => HandlerSignOut(),
+    },
+    {
+      label: (
+        <div
+          className={` custom-dropdown-label text-[0.75rem] md:text-[0.85rem] font-[400]  flex items-center gap-2 px-4 text-linkColor ${poppins.className}`}
+        >
+          <LogoutOutlined /> My Profile
         </div>
       ),
       key: "signout",
