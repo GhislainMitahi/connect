@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { CustomSession } from "@/app/types/next-auth";
-import { Button } from "@/components/ui/button";
 import { SettingFilled, CreditCardFilled, DollarCircleFilled } from "@ant-design/icons";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import MenuElement from "@/components/MenuElement";
 import GeneralSettingsContent from "@/components/generalSettings";
 import SecurityContent from "@/components/security";
@@ -22,17 +21,17 @@ const onChange = (key: string) => {
 const items: TabsProps["items"] = [
   {
     key: "1",
-    label: <p><SettingFilled /> General</p>,
+    label: <p className="md:text-base"><SettingFilled /> General</p>,
     children: <GeneralSettingsContent />,
   },
   {
     key: "2",
-    label: <p><DollarCircleFilled/><span className="-ml-2">Payment</span><span className="text-[10px] bg-greenLight p-1 rounded-sm">Coming Soon</span></p>,
+    label: <p className="md:text-base"><DollarCircleFilled/><span className="-ml-2">Payment</span><span className="text-[10px] bg-greenLight p-1 rounded-sm">Coming Soon</span></p>,
     children: <PaymentContent />,
   },
   {
     key: "3",
-    label: <p className="flex items-center gap-1"><SecurityIcon /> Security</p>,
+    label: <p className="flex items-center gap-1 md:text-base"><SecurityIcon /> Security</p>,
     children: <SecurityContent />,
   },
 ];

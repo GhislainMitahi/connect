@@ -15,7 +15,7 @@ const ModalSetting = () => {
   }
 
   return (
-    <div className="absolute w-[170px]  left-3 top-16 py-2 px-3 z-50 bg-sidebarcolor">
+    <div className="absolute w-[170px]  left-6 top-16 py-2 px-3 z-50 bg-sidebarcolor">
       <div className="flex items-center gap-3 py-2" onClick={() => handleRedirect("/settings/profile")}>
         <UserOutlined />
         <p className="text-sm">My Profile</p>

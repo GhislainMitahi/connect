@@ -1,17 +1,19 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { Avatar } from "antd";
-import { raleway } from "@/lib/fonts";
-import React, { useState } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { CheckSquareOutlined, EditOutlined } from "@ant-design/icons";
+
+import { CustomSession } from "@/app/types/next-auth";
+import { raleway } from "@/lib/fonts";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { message } from "antd";
 
@@ -48,22 +50,16 @@ type AddressFormValues = z.infer<typeof addressSchema>;
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddressEdit, setIsAddressEdit] = useState(false);
+  const [session, setSession] = useState<CustomSession | null>(null);
+  const { data, status } = useSession();
 
-  const [profileData, setProfileData] = useState<ProfileFormValues>({
-    firstname: "Alfred",
-    lastname: "Wanjau",
-    email: 'markzuck@gmail.com',
-    phone: '+327 555 1289',
-    title: 'Founder',
-    city: "Kigali, Rwanda",
-  });
-
-  const [addressData, setAddressData] = useState<AddressFormValues>({
-    country: "USA",
-    city: "Palo Alto, California",
-    zipcode: "86724"
-  })
-
+  useEffect(() => {
+    if (status === "authenticated" && data ) {
+      setSession(data as CustomSession);
+    } else {
+      setSession(null);
+    }
+  }, [data, status]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -75,34 +71,33 @@ const MyProfile = () => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    form.reset(profileData); // Reset form values to the original data
+    form.reset() // Reset form values to the original data
   };
 
   const handleAddressCancel = () => {
     setIsAddressEdit(false);
-    form.reset(addressData);
+    formAddress.reset()
   }
 
 
-
-  // 1. Define your form.
   const form = useForm<z.infer<typeof profileSchema>>({
-    resolver: zodResolver(profileSchema),
-    defaultValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      city: ""
-    },
-  });
+  resolver: zodResolver(profileSchema),
+  defaultValues: {
+    firstname: session?.user.name || "Alfred",
+    lastname: session?.user.lastName || "Wanjau",
+    email: session?.user.email || 'markzuck@gmail.com',
+    phone: '+327 555 1289',
+    title: 'Founder',
+    city: "Kigali, Rwanda",
+  },
+});
 
   const formAddress = useForm<z.infer<typeof addressSchema>>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
-      country: "",
-      city: "",
-      zipcode: ""
+      country: "USA",
+      city: "Palo Alto, California",
+      zipcode: "86724",
     },
   });
 
@@ -118,14 +113,13 @@ const MyProfile = () => {
   }
 
   const handleSave = (data: ProfileFormValues) => {
-    setProfileData(data); // Update the profile data with the form values
     setIsEditing(false); // Exit editing mode
     // Optional: Show a success message or perform other actions
     message.success("Profile updated successfully")
   };
 
   const handleSaveAddress = (data: AddressFormValues) => {
-    setAddressData(data);
+    // setAddressData(data);
     setIsAddressEdit(false)
     message.success("Address updated successfully.")
   }
@@ -133,117 +127,123 @@ const MyProfile = () => {
   return (
     <div className="flex flex-col gap-6 mt-6">
       <div className="rounded-md border-[1px] p-4 md:p-8 border-[#B5D2CC] border-solid">
-        <Avatar size={60} />
-        <div className={`${raleway.className} mt-3`}>
-          <p className="text-auth-text-color font-semibold text-lg">Alfred Wanjau</p>
-          <p className="text-[#949494] font-semibold text-[15px]">Creator</p>
-          <p className="text-[#949494] font-semibold text-[14px]">Kigali, Rwanda</p>
+        <div className="md:flex gap-8 md:items-center">
+          <Avatar size={60} />
+          <div className={`${raleway.className} mt-3`}>
+            <p className="text-auth-text-color font-semibold text-lg">Alfred Wanjau</p>
+            <p className="text-[#949494] font-semibold text-[15px]">Creator</p>
+            <p className="text-[#949494] font-semibold text-[14px]">Kigali, Rwanda</p>
+          </div>
         </div>
       </div>
       <div className={`rounded-md border-[1px] p-4 md:p-8 border-[#B5D2CC] border-solid ${raleway.className}`}>
-        <p className="text-auth-text-color font-semibold text-[20px]">Personal Information</p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSave)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="firstname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">First Name</FormLabel>
-                  {isEditing ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{profileData.firstname}</p>
+          <form onSubmit={form.handleSubmit(handleSave)} className="space-y-8 md:flex md:justify-between">
+            <div className="md:w-[70%]">
+              <p className="text-auth-text-color font-semibold text-[20px] mb-3">Personal Information</p>
+              <div className="md:grid md:grid-cols-2 gap-8">
+                <FormField
+                  control={form.control}
+                  name="firstname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">First Name</FormLabel>
+                      {isEditing ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{form.getValues("firstname")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">Last Name</FormLabel>
-                  {isEditing ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{profileData.lastname}</p>
+                />
+                <FormField
+                  control={form.control}
+                  name="lastname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">Last Name</FormLabel>
+                      {isEditing ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{form.getValues("lastname")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">Email Address</FormLabel>
-                  {isEditing ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{profileData.email}</p>
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">Email Address</FormLabel>
+                      {isEditing ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{form.getValues("email")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">Phone</FormLabel>
-                  {isEditing ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{profileData.phone}</p>
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">Phone</FormLabel>
+                      {isEditing ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{form.getValues("phone")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">Title</FormLabel>
-                  {isEditing ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{profileData.title}</p>
+                />
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">Title</FormLabel>
+                      {isEditing ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{form.getValues("title")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                />
+              </div>
+            </div>
             {
               isEditing ? (
-                <>
+                <div className="md:relative top-10">
                   <Button type="submit" className="bg-[#004A39] text-[#BBFB00]">
                     Save Changes <CheckSquareOutlined className="ml-1"/>
                   </Button>
                   <Button style={{ marginLeft: "10px" }} onClick={handleCancel} className="bg-[#004A39] text-[#BBFB00]">
                     Cancel
                   </Button>
-                </>
+                </div>
               ) : (
                   <Button type="submit" onClick={handleEdit}
                     className="bg-transparent text-[#929292] border-solid border-[#929292] rounded-sm border-[1px] flex items-center gap-2">
@@ -255,82 +255,89 @@ const MyProfile = () => {
         </Form>
       </div>
       <div className={`rounded-md border-[1px] p-4 md:p-8 border-[#B5D2CC] border-solid ${raleway.className}`}>
-        <p className="text-auth-text-color font-semibold text-xl">Address</p>
-        <form onSubmit={formAddress.handleSubmit(handleSaveAddress)} className="space-y-8">
           <Form {...formAddress}>
-            <FormField
-              control={formAddress.control}
-              name="country"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">Country</FormLabel>
-                  {isAddressEdit ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{addressData.country}</p>
+          <form onSubmit={formAddress.handleSubmit(handleSaveAddress)} className="space-y-8 md:flex md:justify-between">
+            <div className="md:w-[70%]">
+              <p className="text-auth-text-color font-semibold text-xl mb-3">Address</p>
+              <div className="md:grid md:grid-cols-2 gap-8">
+                <FormField
+                  control={formAddress.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">Country</FormLabel>
+                      {isAddressEdit ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{formAddress.getValues("country")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={formAddress.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">City/State</FormLabel>
-                  {isAddressEdit ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{addressData.city}</p>
+                />
+                <FormField
+                  control={formAddress.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">City/State</FormLabel>
+                      {isAddressEdit ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{formAddress.getValues("city")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={formAddress.control}
-              name="zipcode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#949494] font-semibold text-sm">ZIP Code</FormLabel>
-                  {isAddressEdit ? (
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  ) : (
-                    <p className="text-auth-text-color text-base font-semibold">{addressData.zipcode}</p>
+                />
+                <FormField
+                  control={formAddress.control}
+                  name="zipcode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#949494] font-semibold text-sm">ZIP Code</FormLabel>
+                      {isAddressEdit ? (
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      ) : (
+                        <p className="text-auth-text-color text-base font-semibold">{formAddress.getValues("zipcode")}</p>
+                      )}
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  {/* <FormDescription>This is your public display name.</FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {
-              isAddressEdit ? (
-                <>
-                  <Button type="submit" className="bg-[#004A39] text-[#BBFB00]">
-                    Save Changes <CheckSquareOutlined className="ml-1"/>
-                  </Button>
-                  <Button style={{ marginLeft: "10px" }} onClick={handleAddressCancel} className="bg-[#004A39] text-[#BBFB00]">
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                  <Button type="submit" onClick={handleAddressEdit}
-                    className="bg-transparent text-[#929292] border-solid border-[#929292] rounded-sm border-[1px] flex items-center gap-2">
-                    Edit <EditOutlined className="text-[#929292] "/>
-                  </Button>
-              )
-            }
-          </Form>
-        </form>
+                />
+              </div>
+
+            </div>
+            <div>
+              {
+                isAddressEdit ? (
+                  <div className="md:relative md:top-9">
+                    <Button type="submit" className="bg-[#004A39] text-[#BBFB00]">
+                      Save Changes <CheckSquareOutlined className="ml-1"/>
+                    </Button>
+                    <Button style={{ marginLeft: "10px" }} onClick={handleAddressCancel} className="bg-[#004A39] text-[#BBFB00]">
+                      Cancel
+                    </Button>
+                  </div>
+                ) : (
+                    <Button type="submit" onClick={handleAddressEdit}
+                      className="bg-transparent text-[#929292] border-solid border-[#929292] rounded-sm border-[1px] flex items-center gap-2">
+                      Edit <EditOutlined className="text-[#929292] "/>
+                    </Button>
+                )
+              }
+            </div>
+          </form>
+        </Form>
       </div>
     </div>
   );
