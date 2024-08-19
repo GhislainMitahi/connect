@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const MenuElement = ({
   icon,
@@ -11,6 +12,11 @@ const MenuElement = ({
   disabled,
   toggleDrawer
 }: menuItems) => {
+
+  const path = usePathname();
+
+  const isActive = url === path;
+
   return (
     <div
       className={classNames({
@@ -19,6 +25,7 @@ const MenuElement = ({
         "flex flex-col items-center w-full py-1 hover:bg-[#c8e3ad80] ease-in-out duration-200 md:p-2 rounded-full":
           isCollapsed,
         "opacity-50 cursor-not-allowed": disabled,
+        "bg-[#c8e3ad]": isActive && !disabled, // Active background color
       })}
       key={key}
     >
