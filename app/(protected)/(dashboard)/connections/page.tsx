@@ -57,12 +57,12 @@ const connectedPlateforms = socialPlatforms.filter(platform => platform.connecte
 const items: TabsProps["items"] = [
   {
     key: "1",
-    label: "Discover",
+    label: <p className="text-base">Discover</p>,
     children: <DiscoverContent  socialPlateforms = {socialPlatforms}/>,
   },
   {
     key: "2",
-    label: "Your connections",
+    label: <p className="text-base">Your connections</p>,
     children: <ConnectionsContent socialPlateforms={connectedPlateforms}/>,
   },
 ];
