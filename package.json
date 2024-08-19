@@ -32,6 +32,7 @@
     "next": "14.2.4",
     "next-auth": "^5.0.0-beta.19",
     "react": "^18",
+    "react-activity-calendar": "^2.3.5",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
     "react-phone-input-2": "^2.15.1",
