@@ -43,15 +43,15 @@ axios.interceptors.request.use(null, error => {
 
 })
 
-// const server = Axios.create({
-//     baseURL: process.env.NEXT_PUBLIC_BASE_BACKEND_URL
-// });
+const server = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_BACKEND_URL
+});
 
 export default {
-    get: axios.get,
-    post: axios.post,
-    put: axios.put,
-    patch: axios.patch,
-    delete: axios.delete
+    get: server.get,
+    post: server.post,
+    put: server.put,
+    patch: server.patch,
+    delete: server.delete
 };
 

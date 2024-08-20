@@ -106,6 +106,8 @@ function SignUp() {
         description: errorMessage,
         duration: 3000,
       });
+    } finally {
+       setIsLoading(false);
     }
   };
   return (
