@@ -7,7 +7,8 @@ import {
   SendOutlined,
   SyncOutlined,
 } from "@ant-design/icons";
-import { Avatar } from "antd";
+
+import Image from "next/image";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -43,10 +44,17 @@ const VisionUserChat = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col gap-8 items-center">
       <div className="bg-sidebarcolor min-h-52 rounded-lg p-4 md:w-[80%]">
         <div className="flex gap-4">
-          <Avatar className="" />
+          <div className="h-[60px] w-[60px]">
+            <Image
+              src="/alyprofile.png"
+              width={100}
+              height={100}
+              alt="Aly profile pucture"
+            />
+          </div>
           <div className="flex gap-2">
             <div>
               <p className="text-auth-text-color font-bold text-[13px] ">
@@ -79,9 +87,16 @@ const VisionUserChat = () => {
           </div>
         </div>
       </div>
-      <div className="rounded-lg py-6 px-4 mb-4 md:w-[80%]">
+      <div className="rounded-lg flex items-center p-4 md:w-[80%]">
         <div className="flex gap-4">
-          <Avatar className="" />
+          <div className="h-[60px] w-[60px]">
+            <Image
+              src="/useronchat.png"
+              width={100}
+              height={100}
+              alt="Aly profile pucture"
+            />
+          </div>
           <div className="flex gap-2">
             <div>
               <p className="text-auth-text-color font-bold text-[13px] ">
@@ -92,9 +107,16 @@ const VisionUserChat = () => {
           </div>
         </div>
       </div>
-      <div className="bg-sidebarcolor min-h-52 rounded-lg py-6 px-4 mt-4 mb-2 md:w-[80%]">
+      <div className="bg-sidebarcolor min-h-52 rounded-lg p-4 md:w-[80%]">
         <div className="flex gap-4">
-          <Avatar className="" />
+          <div className="h-[60px] w-[60px]">
+            <Image
+              src="/alyprofile.png"
+              width={100}
+              height={100}
+              alt="Aly profile pucture"
+            />
+          </div>
           <div className="flex gap-2">
             <div>
               <p className="text-auth-text-color font-bold text-[13px] ">

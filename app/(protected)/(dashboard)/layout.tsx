@@ -314,7 +314,7 @@ export default function DashboardLayout({
           <div className="h-full bg-sidebarcolor flex flex-col gap-6 px-4 border">
             <div className="flex justify-center items-center">
               <Profile
-                image="/english_flag.png"
+                image="/useronchat.png"
                 isCollapsed={collapsed}
                 name={session?.user.name}
               />
