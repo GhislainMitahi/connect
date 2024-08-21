@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { server } from "@/lib/server";
+import server from "@/lib/server";
 import { ResetPassWordFormSchema } from "@/lib/zodSchema";
 import { EyeFilled, EyeInvisibleFilled, LockOutlined } from "@ant-design/icons";
 import axios from "axios";

@@ -1,28 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-
-import {
-  AlignLeftOutlined,
-  AppstoreOutlined,
-  InstagramFilled,
-  SearchOutlined,
-  TikTokFilled,
-  TwitterOutlined,
-  YoutubeFilled,
-} from "@ant-design/icons";
 import { Button, Divider, Input, Modal, Radio } from "antd";
+import { AlignLeftOutlined, AppstoreOutlined, InstagramFilled, SearchOutlined, TikTokFilled, TwitterOutlined, YoutubeFilled  } from "@ant-design/icons";
 
 import PlateformModal from "./platefomModal";
 import SocialsPlateform from "./plateform";
 
 import type { RadioChangeEvent } from "antd";
 
-interface DiscoverContentProps {
+interface ConnectionsContentProps {
   socialPlateforms: { [key: string]: any }[];
 }
 
-const DiscoverContent: React.FC<DiscoverContentProps> = ({ socialPlateforms }) => {
+const ConnectionsContent: React.FC<ConnectionsContentProps> = ({ socialPlateforms }) => {
   const [list, setList] = useState<string>("list");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
@@ -159,4 +150,4 @@ const DiscoverContent: React.FC<DiscoverContentProps> = ({ socialPlateforms }) =
   );
 };
 
-export default DiscoverContent;
+export default ConnectionsContent;

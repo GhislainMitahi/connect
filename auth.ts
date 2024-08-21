@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 import authConfig from './auth.config';
-import { server } from './lib/server';
+import server from './lib/server';
 
 export const {
   handlers: { GET, POST },
@@ -30,7 +30,7 @@ export const {
     async jwt({ token, account }) {
       try {
         if (!token.email) {
-          console.warn('JWT callback - No email found in token:', token);
+          // console.warn('JWT callback - No email found in token:', token);
           return token;
         }
 
@@ -52,15 +52,16 @@ export const {
             lastName: nameParts.slice(1).join(' '),
             isEmailConfirmed: true
           });
+          console.warn(newUser.data, 'This is data')
 
           if (newUser.data.success) {
             token.user = newUser.data.user;
           } else {
-            console.warn('Failed to register user:', token.email);
+            // console.warn('Failed to register user:', token.email);
           }
         }
       } catch (error) {
-        console.error('Error in jwt callback:', error);
+        // console.error('Error in jwt callback:', error);
         token.error = "An error occurred.";
       }
       return token;

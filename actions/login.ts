@@ -22,7 +22,7 @@ export const login = async (values: z.infer<typeof SignInformSchema>) => {
             error: 'Invalid Credentials',
           };
         default:
-          return { error: 'Something went wrong, ensure your credentials are well verified!' };
+          return { error: 'Invalid Email or password!' };
       }
     }
     throw err;

@@ -13,22 +13,24 @@ interface LanguageTriggerProps {
 }
 
 interface menuItems {
-  key: number;
-  title: string;
+  key?: number;
+  title?: string;
   icon: React.ReactElement;
   url: string;
   label?: string;
-  isCollapsed: boolean;
-}
-
-interface menuItems {
-  key: number;
-  title: string;
-  icon: React.ReactElement;
-  url: string;
-  isCollapsed: boolean;
+  isCollapsed?: boolean;
+  toggleDrawer?: () => void;
   disabled?: boolean;
 }
+
+// interface menuItems {
+//   key: number;
+//   title: string;
+//   icon: React.ReactElement;
+//   url: string;
+//   isCollapsed: boolean;
+//   disabled?: boolean;
+// }
 
 type TabPosition = "left" | "right" | "top" | "bottom";
 

@@ -1,4 +1,4 @@
-import { server } from '@/lib/server';
+import server from '@/lib/server'
 import type { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import FacebookProvider from "next-auth/providers/facebook";

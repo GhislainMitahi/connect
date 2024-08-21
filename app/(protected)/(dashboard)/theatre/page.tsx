@@ -1,17 +1,13 @@
 "use client";
+
 import { Radio } from "antd";
 import { useState } from "react";
 
 import PlatfromContent from "../../../../components/plateformContent";
 
-import {
-  InstagramOutlined,
-  TikTokFilled,
-  TikTokOutlined,
-  XOutlined,
-  YoutubeFilled,
-} from "@ant-design/icons";
+import { InstagramFilled, TikTokFilled, XOutlined, YoutubeFilled } from "@ant-design/icons";
 import type { RadioChangeEvent } from "antd";
+import InstagramContent from "./instagramContent";
 
 const options = [
   { label: "Instagram", value: "list" },
@@ -43,14 +39,14 @@ const Theatre = () => {
             className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]"
           >
             <p className="hidden md:block">Instagram</p>
-            <InstagramOutlined className="md:hidden" />
+            <InstagramFilled className="md:hidden" />
           </Radio.Button>
           <Radio.Button
             value="tiktok"
             className="block text-center w-1/4 bg-[#ECF8CB] text-[#004A39]"
           >
             <p className="hidden md:block">TikTok</p>
-            <TikTokOutlined className="md:hidden" />
+            <TikTokFilled className="md:hidden" />
           </Radio.Button>
           <Radio.Button
             value="X"
@@ -68,8 +64,11 @@ const Theatre = () => {
           </Radio.Button>
         </Radio.Group>
       </div>
-      <div className="flex items-center justify-center h-1/2">
-        {platfom === "instagram" && <div></div>}
+      <div className="flex justify-center h-1/2">
+        {platfom === "instagram" && (
+          <div>
+            <InstagramContent />
+          </div>)}
         {platfom === "tiktok" && (
           <div>
             <PlatfromContent
